@@ -1,0 +1,51 @@
+{
+  "name": "unmini",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.3",
+  "description": "_description_",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byronogis/unmini.git"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "automd": "turbo run automd && pnpm run root:automd",
+    "release": "bumpp -r && pnpm run -r release",
+    "root:automd": "automd README.md",
+    "root:lint": "eslint .",
+    "root:lint:fix": "eslint . --fix",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "clear": "turbo run clear && rimraf **/node_modules **/.turbo",
+    "prepare": "simple-git-hooks"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.12.1",
+    "@types/node": "^22.10.5",
+    "@unocss/reset": "^0.65.3",
+    "@vitest/coverage-v8": "^2.1.8",
+    "automd": "^0.3.12",
+    "bumpp": "^9.9.2",
+    "eslint": "^9.17.0",
+    "jiti": "^2.4.2",
+    "lint-staged": "^15.3.0",
+    "rimraf": "^6.0.1",
+    "simple-git-hooks": "^2.11.1",
+    "turbo": "latest",
+    "typescript": "^5.7.2",
+    "unbuild": "^3.2.0",
+    "unocss": "^0.65.3",
+    "vite": "^6.0.7",
+    "vite-plugin-html": "^3.2.2",
+    "vitest": "^2.1.8"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}

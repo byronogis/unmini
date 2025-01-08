@@ -1,0 +1,50 @@
+@import '@unocss/reset/tailwind-compat.css';
+
+:root {
+  --primary: #F9B208;
+  --primary-light: #FFD93D;
+  --primary-dark: #F48B29;
+  --background: #FCF5ED;
+
+  background-color: var(--background);
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  flex: 1;
+  min-width: 100px;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* GitHub Corner 动画 */
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+
+@keyframes octocat-wave {
+  0%, 100% { transform: rotate(0) }
+  20%, 60% { transform: rotate(-25deg) }
+  40%, 80% { transform: rotate(10deg) }
+}
+
+@media (max-width: 500px) {
+  .github-corner:hover .octo-arm {
+    animation: none;
+  }
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+  }
+}

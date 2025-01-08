@@ -1,0 +1,13 @@
+{
+  "name": "playground",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "clear": "rimraf dist"
+  },
+  "devDependencies": {
+    "unmini": "workspace:*"
+  }
+}
