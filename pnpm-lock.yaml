@@ -67,7 +67,7 @@ importers:
 
   playground:
     devDependencies:
-      pkg-placeholder:
+      unmini:
         specifier: workspace:*
         version: link:../packages/core
 
