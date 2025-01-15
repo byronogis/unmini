@@ -1,0 +1,18 @@
+id: expand-attribute-bind-same-name
+language: html
+rule:
+  pattern: $ATTR
+  kind: attribute
+  any:
+    - regex: '^:'
+    - regex: '^v-bind:'
+  not:
+    has:
+      kind: quoted_attribute_value
+transform:
+  NAME:
+    replace:
+      by: ''
+      replace: ':|v-bind:'
+      source: $ATTR
+fix: ':$NAME="$NAME"'

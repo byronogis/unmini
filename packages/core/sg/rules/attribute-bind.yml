@@ -1,0 +1,33 @@
+id: transform-attribute-bind-name
+language: html
+rule:
+  pattern: $ATTR_NAME
+  kind: attribute_name
+  inside:
+    kind: attribute
+    any:
+      - regex: '^:'
+      - regex: '^v-bind:'
+transform:
+  NAME:
+    replace:
+      by: ''
+      replace: ':|v-bind:'
+      source: $ATTR_NAME
+fix: $NAME
+
+---
+
+id: transform-attribute-bind-value
+language: html
+rule:
+  pattern: $ATTR_VALUE
+  kind: attribute_value
+  inside:
+    kind: quoted_attribute_value
+    inside:
+      kind: attribute
+      any:
+        - regex: '^:'
+        - regex: '^v-bind:'
+fix: '{{$ATTR_VALUE}}'

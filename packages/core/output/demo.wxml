@@ -1,0 +1,5 @@
+<div>
+    <button data-value="{{ count }}" hidden="{{ hidden }}" @click="inc">count is: {{ count }}</button>
+
+    <div v-for="(i, idx) in list" key="{{ idx }}">{{ i }}</div>
+  </div>
