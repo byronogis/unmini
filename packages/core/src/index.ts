@@ -1,14 +1,64 @@
-export function sum(a: number, b: number): number {
-  // Convert to string and get decimal places count
-  // 转换为字符串，获取小数位数
-  const aDecimals = (a.toString().split('.')[1] || '').length
-  const bDecimals = (b.toString().split('.')[1] || '').length
+import type { BlockContents, TransformerResult } from './types'
+import { parse as sfcParse } from '@vue/compiler-sfc'
+import { weixin } from './platform/weixin'
+import { preflight } from './preflight'
 
-  // Get maximum decimal places
-  // 取最大小数位数
-  const maxDecimals = Math.max(aDecimals, bDecimals)
+export function core(options: CoreOptions): CoreReturns {
+  const {
+    content,
+    platform = 'weixin',
+  } = options
 
-  // Calculate and fix precision
-  // 进行计算并修正精度
-  return Number((a + b).toFixed(maxDecimals))
+  const {
+    template,
+    script,
+    // scriptSetup,
+    styles,
+    customBlocks,
+  } = sfcParse(content).descriptor
+
+  const style = styles[0]
+  const config = customBlocks.find(block => block.type === 'config')
+
+  const blocks: BlockContents = {
+    template: template?.content || '',
+    script: script?.content || '',
+    style: style.content || '',
+    config: config?.content || '',
+  }
+
+  // preflight transformer
+  const preflighted = preflight({ blocks })
+
+  // platform transformer
+  let platformResult: TransformerResult | undefined
+  switch (platform) {
+    case 'weixin':
+      platformResult = weixin({
+        blocks: preflighted.blocks,
+      })
+      break
+    default:
+      platformResult = {
+        blocks,
+      }
+      break
+  }
+
+  return {
+    blocks: platformResult.blocks,
+  }
+}
+
+export interface CoreOptions {
+  content: string
+  /**
+   * 小程序平台
+   * @default 'weixin'
+   */
+  platform?: 'weixin'
+}
+
+export interface CoreReturns {
+  blocks: BlockContents
 }

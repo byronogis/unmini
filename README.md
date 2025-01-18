@@ -14,9 +14,6 @@
 
 _description_
 
-> **Note**:
-> Replace `unmini`, `_description_` and `byronogis` globally to use this template.
-
 ## Installation
 
 <!-- automd:pm-install -->

@@ -47,5 +47,9 @@
     "clear": "rimraf dist"
   },
   "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@vue/compiler-core": "^3.5.13",
+    "@vue/compiler-sfc": "^3.5.13",
+    "fs-extra": "^11.2.0"
   }
 }
