@@ -6,3 +6,5 @@ export interface BlockContents {
   style: string
   config: string
 }
+
+export type Platform = 'weixin'

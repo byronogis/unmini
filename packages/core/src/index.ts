@@ -39,18 +39,18 @@ export function core(options: CoreOptions): CoreReturns {
       })
       break
     default:
-      platformResult = {
-        blocks,
-      }
       break
   }
 
   return {
-    blocks: platformResult.blocks,
-  }
+    ...platformResult,
+  } as CoreReturns
 }
 
 export interface CoreOptions {
+  /**
+   * 单文件组件内容
+   */
   content: string
   /**
    * 小程序平台
@@ -59,6 +59,6 @@ export interface CoreOptions {
   platform?: 'weixin'
 }
 
-export interface CoreReturns {
-  blocks: BlockContents
+export interface CoreReturns extends TransformerResult {
+  // ...
 }

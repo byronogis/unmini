@@ -1,5 +1,6 @@
 import type { TransformerOptions, TransformerResult } from '../../types'
 import { Lang, parse } from '@ast-grep/napi'
+import { FileExtensions } from '../../constant'
 import {
   trsnaformAttributeBind,
 } from './template'
@@ -20,5 +21,6 @@ export function weixin(options: TransformerOptions): TransformerResult {
       ...blocks,
       template: templateResult,
     },
+    extensions: FileExtensions.weixin,
   }
 }

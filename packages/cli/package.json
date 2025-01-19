@@ -1,8 +1,8 @@
 {
-  "name": "@unmini/core",
+  "name": "@unmini/cli",
   "type": "module",
   "version": "0.0.0",
-  "description": "_description_",
+  "description": "CLI for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",
@@ -32,7 +32,11 @@
       ]
     }
   },
+  "bin": {
+    "unmini": "./bin/unmini.mjs"
+  },
   "files": [
+    "bin",
     "dist"
   ],
   "scripts": {
@@ -47,7 +51,14 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
-    "@ast-grep/napi": "^0.33.0",
-    "@vue/compiler-sfc": "^3.5.13"
+    "@unmini/core": "workspace:*",
+    "cac": "^6.7.14",
+    "chokidar": "^3.6.0",
+    "citty": "^0.1.6",
+    "colorette": "^2.0.20",
+    "consola": "^3.4.0",
+    "pathe": "^2.0.2",
+    "perfect-debounce": "^1.0.0",
+    "tinyglobby": "^0.2.10"
   }
 }
