@@ -1,7 +1,10 @@
-import type { BlockContents, TransformerResult } from './types'
+import type { BlockContents, Platform, TransformerResult } from './types'
 import { parse as sfcParse } from '@vue/compiler-sfc'
+import { CoreError } from './errors'
 import { weixin } from './platform/weixin'
 import { preflight } from './preflight'
+
+export * from './errors'
 
 export function core(options: CoreOptions): CoreReturns {
   const {
@@ -25,6 +28,10 @@ export function core(options: CoreOptions): CoreReturns {
     script: script?.content || '',
     style: style?.content || '',
     config: config?.content || '',
+  }
+
+  if (!blocks.config) {
+    throw new CoreError('[@unmini/core] Missing config block content')
   }
 
   // preflight transformer
@@ -56,7 +63,7 @@ export interface CoreOptions {
    * 小程序平台
    * @default 'weixin'
    */
-  platform?: 'weixin'
+  platform?: Platform
 }
 
 export interface CoreReturns extends TransformerResult {

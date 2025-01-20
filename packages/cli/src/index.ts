@@ -1,6 +1,6 @@
 import type { CliOptions, ResolvedCliOptions } from './types'
 import process from 'node:process'
-import { core } from '@unmini/core'
+import { core, CoreError } from '@unmini/core'
 import { cyan, dim, green } from 'colorette'
 import { consola } from 'consola'
 import { existsSync, mkdir, readFile, remove, writeFile } from 'fs-extra'
@@ -105,12 +105,21 @@ export async function handle(_options: CliOptions): Promise<void> {
     const sourceCache = Array.from(fileCache).map(([id, code]) => ({ id, code }))
 
     const transformedList = sourceCache.map(({ id, code }) => {
-      return {
-        id,
-        code,
-        result: core({
+      try {
+        const result = core({
           content: code,
-        }),
+        })
+        return {
+          id,
+          code,
+          result,
+        }
+      }
+      catch (error: any) {
+        if (error instanceof CoreError) {
+          throw new PrettyError(`[@unmini/cli:${id}] ${error.message}`)
+        }
+        throw error
       }
     })
 
