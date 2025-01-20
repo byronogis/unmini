@@ -1,5 +1,5 @@
 {
-  "name": "unmini",
+  "name": "@unmini/polyfill",
   "type": "module",
   "version": "0.0.0",
   "description": "_description_",
@@ -47,8 +47,6 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
-    "@unmini/cli": "workspace:*",
-    "@unmini/core": "workspace:*",
-    "@unmini/polyfill": "workspace:*"
+    "miniprogram-api-typings": "^4.0.4"
   }
 }
