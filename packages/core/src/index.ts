@@ -23,7 +23,7 @@ export function core(options: CoreOptions): CoreReturns {
   const blocks: BlockContents = {
     template: template?.content || '',
     script: script?.content || '',
-    style: style.content || '',
+    style: style?.content || '',
     config: config?.content || '',
   }
 
