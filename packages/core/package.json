@@ -2,7 +2,7 @@
   "name": "@unmini/core",
   "type": "module",
   "version": "0.0.0",
-  "description": "_description_",
+  "description": "Core for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",
@@ -47,7 +47,7 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
-    "@ast-grep/napi": "^0.33.0",
+    "@ast-grep/napi": "^0.33.1",
     "@babel/core": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
     "@types/babel__core": "^7.20.5",
@@ -55,6 +55,6 @@
     "type-fest": "^4.33.0"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

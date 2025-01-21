@@ -1,10 +1,10 @@
-# @unmini/core
+# @unmini/polyfill
 
 <!-- automd:badges license codecov bundlephobia packagephobia -->
 
-[![npm version](https://img.shields.io/npm/v/@unmini/core)](https://npmjs.com/package/@unmini/core)
-[![npm downloads](https://img.shields.io/npm/dm/@unmini/core)](https://npm.chart.dev/@unmini/core)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/core)](https://bundlephobia.com/package/@unmini/core)
+[![npm version](https://img.shields.io/npm/v/@unmini/polyfill)](https://npmjs.com/package/@unmini/polyfill)
+[![npm downloads](https://img.shields.io/npm/dm/@unmini/polyfill)](https://npm.chart.dev/@unmini/polyfill)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/polyfill)](https://bundlephobia.com/package/@unmini/polyfill)
 [![codecov](https://img.shields.io/codecov/c/gh/byronogis/unmini)](https://codecov.io/gh/byronogis/unmini)
 [![license](https://img.shields.io/github/license/byronogis/unmini)](https://github.com/byronogis/unmini/blob/main/LICENSE)
 
@@ -12,7 +12,7 @@
 
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-Core for [unmini](https://github.com/byronogis/unmini).
+Polyfill for [unmini](https://github.com/byronogis/unmini).
 
 ## Installation
 
@@ -20,22 +20,22 @@ Core for [unmini](https://github.com/byronogis/unmini).
 
 ```sh
 # ✨ Auto-detect
-npx nypm install @unmini/core
+npx nypm install @unmini/polyfill
 
 # npm
-npm install @unmini/core
+npm install @unmini/polyfill
 
 # yarn
-yarn add @unmini/core
+yarn add @unmini/polyfill
 
 # pnpm
-pnpm install @unmini/core
+pnpm install @unmini/polyfill
 
 # bun
-bun install @unmini/core
+bun install @unmini/polyfill
 
 # deno
-deno install @unmini/core
+deno install @unmini/polyfill
 ```
 
 <!-- /automd -->

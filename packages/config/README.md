@@ -1,10 +1,10 @@
-# @unmini/core
+# @unmini/config
 
 <!-- automd:badges license codecov bundlephobia packagephobia -->
 
-[![npm version](https://img.shields.io/npm/v/@unmini/core)](https://npmjs.com/package/@unmini/core)
-[![npm downloads](https://img.shields.io/npm/dm/@unmini/core)](https://npm.chart.dev/@unmini/core)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/core)](https://bundlephobia.com/package/@unmini/core)
+[![npm version](https://img.shields.io/npm/v/@unmini/config)](https://npmjs.com/package/@unmini/config)
+[![npm downloads](https://img.shields.io/npm/dm/@unmini/config)](https://npm.chart.dev/@unmini/config)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/config)](https://bundlephobia.com/package/@unmini/config)
 [![codecov](https://img.shields.io/codecov/c/gh/byronogis/unmini)](https://codecov.io/gh/byronogis/unmini)
 [![license](https://img.shields.io/github/license/byronogis/unmini)](https://github.com/byronogis/unmini/blob/main/LICENSE)
 
@@ -12,7 +12,7 @@
 
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-Core for [unmini](https://github.com/byronogis/unmini).
+Config loader for [unmini](https://github.com/byronogis/unmini).
 
 ## Installation
 
@@ -20,22 +20,22 @@ Core for [unmini](https://github.com/byronogis/unmini).
 
 ```sh
 # ✨ Auto-detect
-npx nypm install @unmini/core
+npx nypm install @unmini/config
 
 # npm
-npm install @unmini/core
+npm install @unmini/config
 
 # yarn
-yarn add @unmini/core
+yarn add @unmini/config
 
 # pnpm
-pnpm install @unmini/core
+pnpm install @unmini/config
 
 # bun
-bun install @unmini/core
+bun install @unmini/config
 
 # deno
-deno install @unmini/core
+deno install @unmini/config
 ```
 
 <!-- /automd -->

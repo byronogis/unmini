@@ -1,10 +1,10 @@
-# @unmini/core
+# @unmini/cli
 
 <!-- automd:badges license codecov bundlephobia packagephobia -->
 
-[![npm version](https://img.shields.io/npm/v/@unmini/core)](https://npmjs.com/package/@unmini/core)
-[![npm downloads](https://img.shields.io/npm/dm/@unmini/core)](https://npm.chart.dev/@unmini/core)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/core)](https://bundlephobia.com/package/@unmini/core)
+[![npm version](https://img.shields.io/npm/v/@unmini/cli)](https://npmjs.com/package/@unmini/cli)
+[![npm downloads](https://img.shields.io/npm/dm/@unmini/cli)](https://npm.chart.dev/@unmini/cli)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/cli)](https://bundlephobia.com/package/@unmini/cli)
 [![codecov](https://img.shields.io/codecov/c/gh/byronogis/unmini)](https://codecov.io/gh/byronogis/unmini)
 [![license](https://img.shields.io/github/license/byronogis/unmini)](https://github.com/byronogis/unmini/blob/main/LICENSE)
 
@@ -12,7 +12,7 @@
 
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-Core for [unmini](https://github.com/byronogis/unmini).
+CLI for [unmini](https://github.com/byronogis/unmini).
 
 ## Installation
 
@@ -20,22 +20,22 @@ Core for [unmini](https://github.com/byronogis/unmini).
 
 ```sh
 # ✨ Auto-detect
-npx nypm install @unmini/core
+npx nypm install @unmini/cli
 
 # npm
-npm install @unmini/core
+npm install @unmini/cli
 
 # yarn
-yarn add @unmini/core
+yarn add @unmini/cli
 
 # pnpm
-pnpm install @unmini/core
+pnpm install @unmini/cli
 
 # bun
-bun install @unmini/core
+bun install @unmini/cli
 
 # deno
-deno install @unmini/core
+deno install @unmini/cli
 ```
 
 <!-- /automd -->

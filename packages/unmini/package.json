@@ -2,7 +2,7 @@
   "name": "unmini",
   "type": "module",
   "version": "0.0.0",
-  "description": "_description_",
+  "description": "Write mini programs using Vue single file and run them on both web pages and mini programs simultaneously",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",
@@ -58,6 +58,6 @@
     "@unmini/polyfill": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

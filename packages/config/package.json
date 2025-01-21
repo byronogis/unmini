@@ -52,10 +52,9 @@
     "c12": "^2.0.1",
     "defu": "^6.1.4",
     "pathe": "^2.0.2",
-    "type-fest": "^4.33.0",
-    "unconfig": "^0.6.1"
+    "type-fest": "^4.33.0"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2022 Byron <https://github.com/byronogis>
+Copyright (c) 2025 Byron <https://github.com/byronogis>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
