@@ -6,18 +6,18 @@ import {
 
 export function preflight(options: TransformerOptions): TransformerResult {
   const {
-    blocks,
+    ctx,
   } = options
 
-  const templateRoot = parse(Lang.Html, blocks.template).root()
+  const templateRoot = parse(Lang.Html, ctx.blockContents.template).root()
 
-  const shorthand = expandAttributeSameNameShorthand({ node: templateRoot })
+  const shorthand = expandAttributeSameNameShorthand({ node: templateRoot, ctx })
 
   const templateResult = templateRoot.commitEdits(shorthand.edits)
 
   return {
-    blocks: {
-      ...blocks,
+    blockContents: {
+      ...ctx.blockContents,
       template: templateResult,
     },
   }
