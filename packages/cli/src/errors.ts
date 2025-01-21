@@ -19,6 +19,9 @@ export function handleError(error: unknown): void {
   if (error instanceof PrettyError) {
     consola.error(error.message)
   }
+  else {
+    console.error(error)
+  }
 
   process.exitCode = 1
 }

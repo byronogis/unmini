@@ -1,6 +1,6 @@
 import type { FSWatcher } from 'chokidar'
 import type { CliOptions } from './types'
-import { resolveOptions } from '.'
+import { resolveConfig } from '@unmini/config'
 
 let watcher: FSWatcher
 
@@ -10,7 +10,7 @@ export async function getWatcher(_options?: CliOptions): Promise<FSWatcher> {
     return watcher
   }
 
-  const options = await resolveOptions(_options ?? {})
+  const options = resolveConfig(_options ?? {})
 
   const { watch } = await import('chokidar')
   const ignored = ['**/{.git,node_modules}/**']

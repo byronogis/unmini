@@ -1,5 +1,5 @@
 import type { CliOptions, ResolvedCliOptions } from './types'
-import process from 'node:process'
+import { loadConfig } from '@unmini/config'
 import { core, CoreError } from '@unmini/core'
 import { cyan, dim, green } from 'colorette'
 import { consola } from 'consola'
@@ -19,28 +19,16 @@ const miscFiles = [
   'project.private.config.json',
 ]
 
-export async function resolveOptions(options: CliOptions): Promise<ResolvedCliOptions> {
+export async function handle(_options: CliOptions): Promise<void> {
+  const fileCache = new Map<string, string>()
+
+  const options = await loadConfig<CliOptions>(_options) as ResolvedCliOptions
+
   if (!options.patterns?.length) {
     throw new PrettyError(
       `No glob patterns, try ${cyan(`${name} <path/to/**/*>`)}`,
     )
   }
-
-  options.cwd ??= process.cwd()
-  options.srcDir ??= options.cwd
-  options.outDir ??= 'unmini-output'
-  options.watch ??= false
-  options.clear ??= false
-  options.outDirFull = resolve(options.cwd, options.outDir)
-  options.srcDirFull = resolve(options.cwd, options.srcDir)
-
-  return options as ResolvedCliOptions
-}
-
-export async function handle(_options: CliOptions): Promise<void> {
-  const fileCache = new Map<string, string>()
-
-  const options = await resolveOptions(_options)
 
   const files = await glob([
     ...miscFiles,
@@ -71,7 +59,7 @@ export async function handle(_options: CliOptions): Promise<void> {
   )
 
   if (!options.clear) {
-    await remove(options.outDirFull)
+    await remove(options.outputDirFull)
   }
 
   await generate(options)
@@ -136,8 +124,8 @@ export async function handle(_options: CliOptions): Promise<void> {
       }
     })
 
-    await remove(options.outDirFull)
-    await mkdir(options.outDirFull, { recursive: true })
+    await remove(options.outputDirFull)
+    await mkdir(options.outputDirFull, { recursive: true })
 
     await Promise.all(transformedList.map(async ({ id, result, keep, code }) => {
       const absOriginal = resolve(id)
@@ -148,7 +136,7 @@ export async function handle(_options: CliOptions): Promise<void> {
         return null
       }
 
-      const newPath = join(options.outDirFull, relativePath)
+      const newPath = join(options.outputDirFull, relativePath)
       const newDir = dirname(newPath)
       if (!existsSync(newDir)) {
         await mkdir(newDir, { recursive: true })

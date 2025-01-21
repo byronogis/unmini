@@ -1,8 +1,8 @@
 {
-  "name": "unmini",
+  "name": "@unmini/config",
   "type": "module",
   "version": "0.0.0",
-  "description": "_description_",
+  "description": "Config loader for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",
@@ -19,11 +19,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    },
-    "./polyfill": {
-      "types": "./dist/polyfill.d.ts",
-      "import": "./dist/polyfill.mjs",
-      "require": "./dist/polyfill.cjs"
     }
   },
   "main": "./dist/index.mjs",
@@ -52,9 +47,12 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
-    "@unmini/cli": "workspace:*",
-    "@unmini/config": "workspace:*",
     "@unmini/core": "workspace:*",
-    "@unmini/polyfill": "workspace:*"
+    "@vue/compiler-sfc": "^3.5.13",
+    "c12": "^2.0.1",
+    "defu": "^6.1.4",
+    "pathe": "^2.0.2",
+    "type-fest": "^4.33.0",
+    "unconfig": "^0.6.1"
   }
 }

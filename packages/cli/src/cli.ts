@@ -19,12 +19,11 @@ const main = defineCommand({
       description: 'Current working directory',
       valueHint: 'dir',
     },
-    outDir: {
+    outputDir: {
       type: 'string',
       description: 'Output directory',
       alias: 'o',
       valueHint: 'dir',
-      default: 'unmini-output',
     },
     srcDir: {
       type: 'string',
