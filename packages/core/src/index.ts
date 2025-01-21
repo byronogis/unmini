@@ -1,71 +1,94 @@
-import type { BlockContents, Platform, TransformerResult } from './types'
-import { parse as sfcParse } from '@vue/compiler-sfc'
-import { CoreError } from './errors'
+import type { BlockContents, Platform, SourceType, TransformerResult } from './types'
+import { annotation } from './annotation'
+import { FileExtensions } from './constant'
+import { getContext } from './context'
 import { weixin } from './platform/weixin'
 import { preflight } from './preflight'
 
+export * from './constant'
+export * from './context'
 export * from './errors'
+export * from './types'
 
-export function core(options: CoreOptions): CoreReturns {
-  const {
-    content,
-    platform = 'weixin',
-  } = options
-
-  const {
-    template,
-    script,
-    // scriptSetup,
-    styles,
-    customBlocks,
-  } = sfcParse(content).descriptor
-
-  const style = styles[0]
-  const config = customBlocks.find(block => block.type === 'config')
-
-  const blocks: BlockContents = {
-    template: template?.content || '',
-    script: script?.content || '',
-    style: style?.content || '',
-    config: config?.content || '',
+export function resolveOptions(options: CoreOptions): ResolvedCoreOptions {
+  return {
+    platform: 'weixin',
+    type: 'component',
+    ...options,
   }
+}
 
-  if (!blocks.config) {
-    throw new CoreError('[@unmini/core] Missing config block content')
-  }
+export function core(_options: CoreOptions): CoreReturns {
+  const options = resolveOptions(_options)
+  const ctx = getContext(options)
 
-  // preflight transformer
-  const preflighted = preflight({ blocks })
+  let result: TransformerResult | undefined
 
-  // platform transformer
-  let platformResult: TransformerResult | undefined
-  switch (platform) {
+  /**
+   * preflight transformer
+   *
+   * 预处理转换器
+   */
+  result = preflight({ ctx })
+
+  /**
+   * platform transformer
+   *
+   * 平台转换器
+   */
+  switch (options.platform) {
     case 'weixin':
-      platformResult = weixin({
-        blocks: preflighted.blocks,
-      })
+      result = weixin({ ctx })
       break
     default:
       break
   }
 
+  /**
+   * annotation transformer
+   *
+   * 注解转换器
+   */
+  result = annotation({ ctx: { ...ctx, blockContents: result.blockContents } })
+
   return {
-    ...platformResult,
+    extensions: FileExtensions[options.platform],
+    ...result,
   } as CoreReturns
 }
 
 export interface CoreOptions {
   /**
-   * 单文件组件内容
+   * content of sfc
+   *
+   * 单文件组件的内容
    */
   content: string
   /**
+   * platform of miniprogram
+   *
    * 小程序平台
+   *
    * @default 'weixin'
    */
   platform?: Platform
+  /**
+   * content type of sfc
+   *
+   * 单文件组件的内容类型
+   *
+   * @default 'component'
+   */
+  type?: SourceType
 }
 
+export type ResolvedCoreOptions = Required<CoreOptions>
+
 export interface CoreReturns extends TransformerResult {
-  // ...
+  /**
+   * extension of block content
+   *
+   * 代码块对应的文件扩展名
+   */
+  extensions?: Record<keyof BlockContents, string>
 }

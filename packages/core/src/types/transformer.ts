@@ -1,33 +1,25 @@
 import type { Edit, SgNode } from '@ast-grep/napi'
-import type { BlockContents, Platform } from '.'
+import type { BlockContents } from '.'
+import type { Context } from '..'
 
 export interface TransformerOptions {
-  /**
-   * 代码块
-   */
-  blocks: BlockContents
-  /**
-   * 小程序平台
-   */
-  platform?: Platform
+  ctx: Context
 }
 
 export interface TransformerResult {
   /**
+   * the transformed code block content
+   *
    * 转换后的代码块
    */
-  blocks: BlockContents
-  /**
-   * 代码块对应的文件扩展名
-   */
-  extensions?: Record<keyof BlockContents, string>
+  blockContents: BlockContents
 }
 
 export interface TransformOptions {
   node: SgNode
+  ctx: Context
 }
 
 export interface TransformResult {
   edits: Edit[]
-  // content: string
 }

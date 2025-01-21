@@ -10,3 +10,7 @@ export const FileExtensions: Record<Platform, {
     config: '.json',
   },
 }
+
+export const PlatformAPIs: Record<Platform, string> = {
+  weixin: 'wx',
+}
