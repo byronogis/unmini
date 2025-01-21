@@ -1,3 +1,4 @@
+import type { Platform } from '@unmini/core'
 import type { SFCParseOptions } from '@vue/compiler-sfc'
 import type { SetRequiredDeep } from 'type-fest'
 import process from 'node:process'
@@ -9,8 +10,9 @@ export const defaultConfig: Config = {
   block: {
     config: 'config',
   },
+  platform: 'weixin',
   patterns: [],
-  extension: '.mini.vue',
+  subExtension: 'mini',
   outputDir: 'unmini-output',
   clear: false,
   transform: {
@@ -60,6 +62,14 @@ export interface Config {
     config?: string
   }
   /**
+   * the platform of miniprogram
+   *
+   * 小程序平台
+   *
+   * @default 'weixin'
+   */
+  platform?: Platform & string
+  /**
    * the patterns to match files
    *
    * powered by [tinyglobby](https://github.com/SuperchupuDev/tinyglobby#readme)
@@ -70,13 +80,16 @@ export interface Config {
    */
   patterns?: string[]
   /**
-   * the extension of the single file, used when getting the file name
+   * sub extension, recognize files that need to be converted
    *
-   * 单文件扩展名, 在获取文件名时使用
+   * e.g. `page.mini.vue` `utils.mini.ts`
    *
-   * @default '.mini.vue'
+   * 子扩展名, 识别需要转换文件
+   * patterns 的结果中不包含子扩展名的文件将被直接复制
+   *
+   * @default 'mini'
    */
-  extension?: string
+  subExtension?: string
   /**
    * work directory
    *
@@ -121,6 +134,7 @@ export interface Config {
      * 文件直接复制而不经过转换
      *
      * @default []
+     * @deprecated
      */
     exclude?: (RegExp | (({ id }: { id: string }) => boolean))[]
   }
@@ -142,8 +156,9 @@ export interface Config {
 
 export interface ResolvedConfig extends SetRequiredDeep<
   Config,
-  | 'block' | 'block.config' | 'patterns' | 'extension' | 'transform' | 'transform.exclude'
+  | 'block' | 'block.config' | 'patterns' | 'subExtension' | 'transform' | 'transform.exclude'
   | 'cwd' | 'srcDir' | 'outputDir' | 'clear'
+  | 'platform'
 > {
   /**
    * Full path to output directory

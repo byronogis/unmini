@@ -14,6 +14,11 @@ const main = defineCommand({
       description: 'Glob pattern',
       required: true,
     },
+    platform: {
+      type: 'string',
+      description: 'Platform',
+      alias: 'x',
+    },
     cwd: {
       type: 'string',
       description: 'Current working directory',
@@ -43,6 +48,7 @@ const main = defineCommand({
     },
   },
   run({ args }) {
+    // @ts-expect-error platform is a type of Platform
     handle({
       ...args,
       patterns: Array.isArray(args.patterns) ? args.patterns : [args.patterns],

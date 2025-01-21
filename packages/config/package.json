@@ -54,5 +54,8 @@
     "pathe": "^2.0.2",
     "type-fest": "^4.33.0",
     "unconfig": "^0.6.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
   }
 }

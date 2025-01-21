@@ -27,7 +27,7 @@ export function trsnaformPlatformAPI(options: TransformOptions): TransformResult
       return undefined
     }
 
-    return _node.replace(`${PlatformAPIs[ctx.options.platform]}.${text}`)
+    return _node.replace(`${PlatformAPIs[ctx.options.resolvedConfig.platform]}.${text}`)
   }).filter(Boolean) as Edit[]
 
   return {
@@ -274,7 +274,10 @@ export function trsnaformExportDefault(options: TransformOptions): TransformResu
     page: 'Page',
   }
 
-  const edits = [exportNode!.replace(`${names[ctx.options.type]}(${text})`)] as Edit[]
+  const isApp = ctx.options.id.endsWith('app.mini.vue')
+  const name = isApp ? 'app' : 'component'
+
+  const edits = [exportNode!.replace(`${names[name]}(${text})`)] as Edit[]
 
   return {
     edits,

@@ -51,8 +51,12 @@ export async function handle(_options: CliOptions): Promise<void> {
     100,
   )
 
-  if (!options.clear) {
+  if (options.clear) {
     await remove(options.outputDirFull)
+  }
+
+  if (!existsSync(options.outputDirFull)) {
+    await mkdir(options.outputDirFull, { recursive: true })
   }
 
   await generate(options)
@@ -91,31 +95,17 @@ export async function handle(_options: CliOptions): Promise<void> {
   }
 
   async function generate(options: ResolvedCliOptions): Promise<void> {
-    const sourceCache = Array.from(fileCache).map(([id, code]) => ({ id, code }))
+    const sourceCache = Array.from(fileCache).map(([id, content]) => ({ id, content }))
 
-    const transformedList = sourceCache.map(({ id, code }) => {
+    const transformedList = sourceCache.map(({ id, content }) => {
       try {
-        // Check if the file should be kept (not transformed, copied as is)
-        const keep = options.transform.exclude.some((pattern) => {
-          if (typeof pattern === 'function') {
-            return pattern({ id })
-          }
-          return pattern.test(id)
-        })
+        const shouldTransform = id.split('.').at(-2) === options.subExtension
 
-        const result = !keep
-          ? core({
-              content: code,
-              type: id.endsWith('app.mini.vue') ? 'app' : 'component',
-              resolvedConfig: options,
-            })
-          : undefined
-        return {
-          id,
-          code,
-          result,
-          keep,
-        }
+        const result = shouldTransform
+          ? core({ id, content, resolvedConfig: options })
+          : [{ content, ext: id.split('.').at(-1) }]
+
+        return result.map(i => ({ ...i, id }))
       }
       catch (error: any) {
         if (error instanceof CoreError) {
@@ -123,12 +113,9 @@ export async function handle(_options: CliOptions): Promise<void> {
         }
         throw error
       }
-    })
+    }).flat()
 
-    await remove(options.outputDirFull)
-    await mkdir(options.outputDirFull, { recursive: true })
-
-    await Promise.all(transformedList.map(async ({ id, result, keep, code }) => {
+    await Promise.all(transformedList.map(async ({ id, content, ext }) => {
       const absOriginal = resolve(id)
 
       const relativePath = relative(options.srcDirFull, absOriginal)
@@ -143,27 +130,16 @@ export async function handle(_options: CliOptions): Promise<void> {
         await mkdir(newDir, { recursive: true })
       }
 
-      if (keep) {
-        return await writeFile(newPath, code, 'utf-8')
+      let filename = basename(id).split('.').slice(0, -1).join('.')
+      if (filename.endsWith(`.${options.subExtension}`)) {
+        filename = filename.replace(`.${options.subExtension}`, '')
       }
-      else {
-        const filename = basename(id, options.extension)
-        !keep && Object.entries(result!.blockContents).map(async ([block, content]) => {
-          // Skip the template block for app
-          if (filename === 'app' && block === 'template') {
-            return
-          }
 
-          // @ts-expect-error - block is a key of BlockContents
-          const fileExt = result.extensions[block]
-          const blockPath = format({
-            dir: newDir,
-            name: filename,
-            ext: fileExt,
-          })
-          await writeFile(blockPath, content, 'utf-8')
-        })
-      }
+      await writeFile(format({
+        dir: newDir,
+        name: filename,
+        ext,
+      }), content, 'utf-8')
     }))
   }
 }

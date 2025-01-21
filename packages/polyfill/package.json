@@ -48,5 +48,8 @@
   },
   "dependencies": {
     "miniprogram-api-typings": "^4.0.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
   }
 }

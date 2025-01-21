@@ -56,5 +56,8 @@
     "@unmini/config": "workspace:*",
     "@unmini/core": "workspace:*",
     "@unmini/polyfill": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
   }
 }

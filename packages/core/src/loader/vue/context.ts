@@ -1,7 +1,7 @@
 import type { SFCBlock, SFCScriptBlock, SFCStyleBlock, SFCTemplateBlock } from '@vue/compiler-sfc'
-import type { BlockContents, ResolvedCoreOptions } from '.'
+import type { BlockContents, ResolvedCoreOptions } from '../..'
 import { parse as sfcParse } from '@vue/compiler-sfc'
-import { CoreError } from './errors'
+import { CoreError } from '../../errors'
 
 export function getContext(options: ResolvedCoreOptions): Context {
   const {
