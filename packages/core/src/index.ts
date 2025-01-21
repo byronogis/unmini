@@ -1,3 +1,5 @@
+import type { ResolvedConfig } from '@unmini/config'
+import type { SetRequired } from 'type-fest'
 import type { BlockContents, Platform, SourceType, TransformerResult } from './types'
 import { annotation } from './annotation'
 import { FileExtensions } from './constant'
@@ -80,9 +82,10 @@ export interface CoreOptions {
    * @default 'component'
    */
   type?: SourceType
+  resolvedConfig?: ResolvedConfig
 }
 
-export type ResolvedCoreOptions = Required<CoreOptions>
+export type ResolvedCoreOptions = SetRequired<CoreOptions, 'platform' | 'type'>
 
 export interface CoreReturns extends TransformerResult {
   /**

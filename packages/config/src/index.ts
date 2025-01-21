@@ -115,13 +115,13 @@ export interface Config {
     /**
      * files will be written directly without conversion
      *
-     * support glob pattern, powered by [tinyglobby](https://github.com/SuperchupuDev/tinyglobby#readme)
+     * can be a regular expression, or a function
      *
      * 文件直接复制而不经过转换
      *
      * @default []
      */
-    exclude?: string[]
+    exclude?: (RegExp | (({ id }: { id: string }) => boolean))[]
   }
   /**
    * the options for vue

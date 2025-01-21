@@ -9,7 +9,7 @@ export function getContext(options: ResolvedCoreOptions): Context {
     script,
     styles,
     customBlocks,
-  } = sfcParse(options.content).descriptor
+  } = sfcParse(options.content, options.resolvedConfig?.vue?.parseOptions).descriptor
 
   const style = styles[0]
   const config = customBlocks.find(block => block.type === 'config')

@@ -12,12 +12,6 @@ import { handleError, PrettyError } from './errors'
 import { getWatcher } from './watcher'
 
 const name = 'unmini'
-const ext = '.mini.vue'
-
-const miscFiles = [
-  'project.config.json',
-  'project.private.config.json',
-]
 
 export async function handle(_options: CliOptions): Promise<void> {
   const fileCache = new Map<string, string>()
@@ -31,7 +25,6 @@ export async function handle(_options: CliOptions): Promise<void> {
   }
 
   const files = await glob([
-    ...miscFiles,
     ...options.patterns,
   ], {
     cwd: options.srcDirFull,
@@ -102,11 +95,19 @@ export async function handle(_options: CliOptions): Promise<void> {
 
     const transformedList = sourceCache.map(({ id, code }) => {
       try {
-        const keep = miscFiles.includes(basename(id))
+        // Check if the file should be kept (not transformed, copied as is)
+        const keep = options.transform.exclude.some((pattern) => {
+          if (typeof pattern === 'function') {
+            return pattern({ id })
+          }
+          return pattern.test(id)
+        })
+
         const result = !keep
           ? core({
               content: code,
               type: id.endsWith('app.mini.vue') ? 'app' : 'component',
+              resolvedConfig: options,
             })
           : undefined
         return {
@@ -146,7 +147,7 @@ export async function handle(_options: CliOptions): Promise<void> {
         return await writeFile(newPath, code, 'utf-8')
       }
       else {
-        const filename = basename(id, ext)
+        const filename = basename(id, options.extension)
         !keep && Object.entries(result!.blockContents).map(async ([block, content]) => {
           // Skip the template block for app
           if (filename === 'app' && block === 'template') {
