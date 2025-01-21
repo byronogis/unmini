@@ -14,6 +14,11 @@ import { getWatcher } from './watcher'
 const name = 'unmini'
 const ext = '.mini.vue'
 
+const miscFiles = [
+  'project.config.json',
+  'project.private.config.json',
+]
+
 export async function resolveOptions(options: CliOptions): Promise<ResolvedCliOptions> {
   if (!options.patterns?.length) {
     throw new PrettyError(
@@ -37,7 +42,10 @@ export async function handle(_options: CliOptions): Promise<void> {
 
   const options = await resolveOptions(_options)
 
-  const files = await glob(options.patterns, {
+  const files = await glob([
+    ...miscFiles,
+    ...options.patterns,
+  ], {
     cwd: options.srcDirFull,
     absolute: true,
     expandDirectories: false,
@@ -106,13 +114,18 @@ export async function handle(_options: CliOptions): Promise<void> {
 
     const transformedList = sourceCache.map(({ id, code }) => {
       try {
-        const result = core({
-          content: code,
-        })
+        const keep = miscFiles.includes(basename(id))
+        const result = !keep
+          ? core({
+              content: code,
+              type: id.endsWith('app.mini.vue') ? 'app' : 'component',
+            })
+          : undefined
         return {
           id,
           code,
           result,
+          keep,
         }
       }
       catch (error: any) {
@@ -126,7 +139,7 @@ export async function handle(_options: CliOptions): Promise<void> {
     await remove(options.outDirFull)
     await mkdir(options.outDirFull, { recursive: true })
 
-    await Promise.all(transformedList.map(async ({ id, result }) => {
+    await Promise.all(transformedList.map(async ({ id, result, keep, code }) => {
       const absOriginal = resolve(id)
 
       const relativePath = relative(options.srcDirFull, absOriginal)
@@ -141,17 +154,27 @@ export async function handle(_options: CliOptions): Promise<void> {
         await mkdir(newDir, { recursive: true })
       }
 
-      const filename = basename(id, ext)
-      Object.entries(result.blocks).map(async ([block, content]) => {
-        // @ts-expect-error - block is a key of BlockContents
-        const fileExt = result.extensions[block]
-        const blockPath = format({
-          dir: newDir,
-          name: filename,
-          ext: fileExt,
+      if (keep) {
+        return await writeFile(newPath, code, 'utf-8')
+      }
+      else {
+        const filename = basename(id, ext)
+        !keep && Object.entries(result!.blockContents).map(async ([block, content]) => {
+          // Skip the template block for app
+          if (filename === 'app' && block === 'template') {
+            return
+          }
+
+          // @ts-expect-error - block is a key of BlockContents
+          const fileExt = result.extensions[block]
+          const blockPath = format({
+            dir: newDir,
+            name: filename,
+            ext: fileExt,
+          })
+          await writeFile(blockPath, content, 'utf-8')
         })
-        await writeFile(blockPath, content, 'utf-8')
-      })
+      }
     }))
   }
 }
