@@ -1,6 +1,10 @@
 import type { Edit } from '@ast-grep/napi'
 import type { TransformOptions, TransformResult } from '../../types'
 
+/**
+ * @example
+ * `:attr="value"` -> `attr="{{ value }}"`
+ */
 export function trsnaformAttributeBind(options: TransformOptions): TransformResult {
   const {
     node,
