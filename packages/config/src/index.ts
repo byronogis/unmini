@@ -70,9 +70,9 @@ export interface Config {
    */
   patterns?: string[]
   /**
-   * the extension of the single file
+   * the extension of the single file, used when getting the file name
    *
-   * 单文件扩展名
+   * 单文件扩展名, 在获取文件名时使用
    *
    * @default '.mini.vue'
    */

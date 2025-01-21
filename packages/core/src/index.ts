@@ -1,6 +1,7 @@
 import type { ResolvedConfig } from '@unmini/config'
 import type { SetRequired } from 'type-fest'
 import type { BlockContents, Platform, SourceType, TransformerResult } from './types'
+import { resolveConfig } from '@unmini/config'
 import { annotation } from './annotation'
 import { FileExtensions } from './constant'
 import { getContext } from './context'
@@ -16,6 +17,7 @@ export function resolveOptions(options: CoreOptions): ResolvedCoreOptions {
   return {
     platform: 'weixin',
     type: 'component',
+    resolvedConfig: resolveConfig(),
     ...options,
   }
 }
@@ -85,7 +87,7 @@ export interface CoreOptions {
   resolvedConfig?: ResolvedConfig
 }
 
-export type ResolvedCoreOptions = SetRequired<CoreOptions, 'platform' | 'type'>
+export type ResolvedCoreOptions = SetRequired<CoreOptions, 'platform' | 'type' | 'resolvedConfig'>
 
 export interface CoreReturns extends TransformerResult {
   /**

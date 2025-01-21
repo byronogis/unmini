@@ -9,10 +9,10 @@ export function getContext(options: ResolvedCoreOptions): Context {
     script,
     styles,
     customBlocks,
-  } = sfcParse(options.content, options.resolvedConfig?.vue?.parseOptions).descriptor
+  } = sfcParse(options.content, options.resolvedConfig.vue?.parseOptions).descriptor
 
   const style = styles[0]
-  const config = customBlocks.find(block => block.type === 'config')
+  const config = customBlocks.find(block => block.type === options.resolvedConfig.block.config)
 
   if (!config) {
     throw new CoreError('[@unmini/core] Missing config block content')
