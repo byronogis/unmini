@@ -36,6 +36,7 @@ export function resolveConfig(...configs: Config[]): ResolvedConfig {
 
   config.cwd ??= process.cwd()
   config.srcDir ??= config.cwd
+  config.patterns = Array.from(new Set(config.patterns))
 
   return {
     ...config,
