@@ -15,9 +15,6 @@ export const defaultConfig: Config = {
   subExtension: 'mini',
   outputDir: 'unmini-output',
   clear: false,
-  transform: {
-    exclude: [],
-  },
 }
 
 export async function loadConfig<T extends Config = Config>(
@@ -133,17 +130,6 @@ export interface Config {
      * 自定义转换器
      */
     loaders?: Record<string, (options: LoaderOptions) => LoaderReturns>
-    /**
-     * files will be written directly without conversion
-     *
-     * can be a regular expression, or a function
-     *
-     * 文件直接复制而不经过转换
-     *
-     * @default []
-     * @deprecated
-     */
-    exclude?: (RegExp | (({ id }: { id: string }) => boolean))[]
   }
   /**
    * the options for vue
@@ -163,7 +149,7 @@ export interface Config {
 
 export interface ResolvedConfig extends SetRequiredDeep<
   Config,
-  | 'block' | 'block.config' | 'patterns' | 'subExtension' | 'transform' | 'transform.exclude'
+  | 'block' | 'block.config' | 'patterns' | 'subExtension'
   | 'cwd' | 'srcDir' | 'outputDir' | 'clear'
   | 'platform'
 > {
