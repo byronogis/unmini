@@ -1,6 +1,7 @@
 import type { LoaderOptions, LoaderReturns } from '.'
 import { Lang, parse } from '@ast-grep/napi'
 import {
+  removeUnMiniPolyfillImport,
   trsnaformUnMiniImportFilePath,
 } from '../shared/transform/script'
 import { transformTsToJs } from '../utils'
@@ -17,6 +18,7 @@ export function tsLoader(options: LoaderOptions): LoaderReturns {
 
   const scriptTransforms = [
     trsnaformUnMiniImportFilePath,
+    removeUnMiniPolyfillImport,
   ]
 
   scriptTransforms.forEach((transform) => {

@@ -1,6 +1,7 @@
 import type { VueTransformerOptions } from '../'
 import { Lang, parse } from '@ast-grep/napi'
 import {
+  removeUnMiniPolyfillImport,
   trsnaformUnMiniImportFilePath,
 } from '../../../shared/transform/script'
 import {
@@ -35,6 +36,7 @@ export function preflight(options: VueTransformerOptions): void {
 
   const scriptTransforms = [
     trsnaformUnMiniImportFilePath,
+    removeUnMiniPolyfillImport,
   ]
 
   scriptTransforms.forEach((transform) => {

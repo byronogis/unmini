@@ -47,3 +47,35 @@ export function trsnaformUnMiniImportFilePath(options: TransformOptions): Transf
     edits,
   }
 }
+
+/**
+ * @example
+ * `import { unmini } from 'unmini/polyfill'` -> ``
+ */
+export function removeUnMiniPolyfillImport(options: TransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  const match = 'POLYFILL_IMPORT'
+
+  const matcher: NapiConfig = {
+    rule: {
+      pattern: `$${match}`,
+      kind: 'import_statement',
+    },
+  }
+
+  const edits = node.findAll(matcher).map((_node) => {
+    const text = _node.getMatch(match)?.text()
+    if (!text) {
+      return undefined
+    }
+
+    return _node.replace('')
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
