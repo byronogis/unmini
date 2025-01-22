@@ -2,7 +2,7 @@ import type { VueTransformerOptions } from '../'
 import { Lang, parse } from '@ast-grep/napi'
 import {
   trsnaformUnMiniImportFilePath,
-} from './script'
+} from '../../../shared/transform/script'
 import {
   expandAttributeSameNameShorthand,
 } from './template'
