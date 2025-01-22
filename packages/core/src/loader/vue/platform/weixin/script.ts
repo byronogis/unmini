@@ -244,7 +244,7 @@ export function trsnaformDataAssignment(options: VueTransformOptions): Transform
 
 /**
  * @example
- * `export default { a: 1 }` -> `App({ a: 1 })`
+ * `export default unmini.defineApp({ a: 1 })` -> `App({ a: 1 })`
  */
 export function trsnaformExportDefault(options: VueTransformOptions): TransformResult {
   const {
@@ -273,10 +273,9 @@ export function trsnaformExportDefault(options: VueTransformOptions): TransformR
   const names: Record<string, string> = {
     defineApp: 'App',
     defineComponent: 'Component',
-    definePage: 'Page',
   }
 
-  const _text = text.replace(/^.*(defineApp|defineComponent|definePage)/, (_, name) => {
+  const _text = text.replace(/^.*(defineApp|defineComponent)/, (_, name) => {
     return names[name]
   })
 

@@ -12,7 +12,6 @@ export const unmini = {
 
   defineComponent,
   defineApp: defineComponent,
-  definePage: defineComponent,
 } as unknown as {
   mini: typeof weixin
   global: {
@@ -24,6 +23,5 @@ export const unmini = {
 
   defineComponent: typeof defineComponent
   defineApp: typeof defineComponent
-  definePage: typeof defineComponent
   // TODO add more ...
 }
