@@ -1,9 +1,10 @@
-import type { ResolvedConfig } from '@unmini/config'
 import type { SetRequired } from 'type-fest'
+import type { ResolvedConfig } from './config'
 import type { LoaderReturns } from './loader'
-import { resolveConfig } from '@unmini/config'
+import { resolveConfig } from './config'
 import { loader } from './loader'
 
+export * from './config'
 export * from './constant'
 export * from './errors'
 export * from './loader'

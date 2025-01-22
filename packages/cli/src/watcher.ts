@@ -1,6 +1,6 @@
 import type { FSWatcher } from 'chokidar'
 import type { CliOptions } from './types'
-import { resolveConfig } from '@unmini/config'
+import { resolveConfig } from '@unmini/core'
 
 let watcher: FSWatcher
 

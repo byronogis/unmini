@@ -1,4 +1,4 @@
-import type { Config } from '@unmini/config'
+import type { Config } from '@unmini/core'
 
 export * from '@unmini/cli'
 export * from '@unmini/config'

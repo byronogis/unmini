@@ -1,4 +1,4 @@
-import type { Config, ResolvedConfig } from '@unmini/config'
+import type { Config, ResolvedConfig } from '@unmini/core'
 
 interface BaseCLIOptions {
   /**
