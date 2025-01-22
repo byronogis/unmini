@@ -1,5 +1,5 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
-import type { SourceType, TransformOptions, TransformResult } from '../../../../types'
+import type { Platform, SourceType, TransformOptions, TransformResult } from '../../../../types'
 import { PlatformAPIs } from '../../../../constant'
 
 /**
@@ -27,7 +27,9 @@ export function trsnaformPlatformAPI(options: TransformOptions): TransformResult
       return undefined
     }
 
-    return _node.replace(`${PlatformAPIs[ctx.options.resolvedConfig.platform]}.${text}`)
+    const _platform = ctx.options.resolvedConfig.platform as Platform
+
+    return _node.replace(`${PlatformAPIs[_platform]}.${text}`)
   }).filter(Boolean) as Edit[]
 
   return {

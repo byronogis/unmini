@@ -108,7 +108,7 @@ export async function handle(_options: CliOptions): Promise<void> {
 
         const result = shouldTransform
           ? core({ id, content, resolvedConfig: options })
-          : [{ content, ext: id.split('.').at(-1) }]
+          : [{ content, ext: id.split('.').at(-1) || '' }]
 
         return result.map(i => ({ ...i, id }))
       }
@@ -125,7 +125,8 @@ export async function handle(_options: CliOptions): Promise<void> {
      *
      * 按照目录结构输出文件
      */
-    await Promise.all(transformedList.map(async ({ id, content, ext }) => {
+    await Promise.all(transformedList.map(async (transformed) => {
+      const { id, content, ext } = transformed
       const absOriginal = resolve(id)
 
       const relativePath = relative(options.srcDirFull, absOriginal)
@@ -143,6 +144,23 @@ export async function handle(_options: CliOptions): Promise<void> {
       let filename = basename(id).split('.').slice(0, -1).join('.')
       if (filename.endsWith(`.${options.subExtension}`)) {
         filename = filename.replace(`.${options.subExtension}`, '')
+      }
+
+      /**
+       * exclude files while output
+       */
+      if (options.transform?.output?.exclude?.length) {
+        const shouldExclude = options.transform.output.exclude.some((i) => {
+          if (typeof i === 'function') {
+            return i(transformed)
+          }
+
+          return i.test(filename)
+        })
+
+        if (shouldExclude) {
+          return null
+        }
       }
 
       await writeFile(format({

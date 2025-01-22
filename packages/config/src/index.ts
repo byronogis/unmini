@@ -130,6 +130,23 @@ export interface Config {
      * 自定义转换器
      */
     loaders?: Record<string, (options: LoaderOptions) => LoaderReturns>
+    /**
+     * control the behavior of the output
+     *
+     * 输出行为
+     */
+    output?: {
+      /**
+       * whether to output the file
+       *
+       * can be a regular expression, or a function
+       *
+       * 文件是否需要输出
+       *
+       * @default []
+       */
+      exclude?: (RegExp | ((options: LoaderReturns[number] & { id: string }) => boolean))[]
+    }
   }
   /**
    * the options for vue
