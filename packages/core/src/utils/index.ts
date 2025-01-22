@@ -29,3 +29,21 @@ export function splitAtFirstChar(str: string, char: string): [string, string | u
     str.substring(index + 1),
   ]
 }
+
+/**
+ * split vue directive
+ *
+ * name:argument.modifier -> [name, argument, [modifier]]
+ * name:argument -> [name, argument, []]
+ * name -> [name, undefined, []]
+ *
+ * @example
+ * v-on:click.stop.prevent -> ['on', 'click', ['stop', 'prevent']]
+ *
+ * @see https://vuejs.org/guide/essentials/template-syntax.html#modifiers
+ */
+export function resolveVueDirective(derictive: string): [string, string | undefined, string[]] {
+  const [name, rest] = splitAtFirstChar(derictive, ':')
+  const [arg, ...modifiers] = rest?.split('.') || []
+  return [name, arg, modifiers]
+}

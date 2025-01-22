@@ -2,14 +2,13 @@ import type { Edit } from '@ast-grep/napi'
 import type { VueTransformOptions } from '../../'
 import type { TransformResult } from '../../../../types'
 import { Lang, parse } from '@ast-grep/napi'
-import { splitAtFirstChar } from '../../../../utils'
+import { resolveVueDirective, splitAtFirstChar } from '../../../../utils'
 
 /**
  * @example
- * `:attr="value"` -> `attr="{{ value }}"`
  * `v-bind:attr="value"` -> `attr="{{ value }}"`
  */
-export function transformAttributeBind(options: VueTransformOptions): TransformResult {
+export function transformVBind(options: VueTransformOptions): TransformResult {
   const {
     node,
   } = options
@@ -20,10 +19,7 @@ export function transformAttributeBind(options: VueTransformOptions): TransformR
     rule: {
       pattern: `$${match}`,
       kind: 'attribute',
-      any: [
-        { regex: '^:' },
-        { regex: '^v-bind:' },
-      ],
+      regex: '^v-bind:',
     },
   }
 
@@ -34,12 +30,12 @@ export function transformAttributeBind(options: VueTransformOptions): TransformR
     }
 
     const [
-      nameWithDirective,
+      directive,
       valueWithQuote,
     ] = splitAtFirstChar(attributeText, '=')
-    const name = nameWithDirective.split(':').pop()
+    const [, dArg] = resolveVueDirective(directive)
     const value = valueWithQuote!.slice(1, -1)
-    return node.replace(`${name}="{{ ${value} }}"`)
+    return node.replace(`${dArg}="{{ ${value} }}"`)
   }).filter(Boolean) as Edit[]
 
   return {
@@ -49,10 +45,10 @@ export function transformAttributeBind(options: VueTransformOptions): TransformR
 
 /**
  * @example
- * `@click="handler"` -> `bindclick="handler"`
- * `@click.stop="handler"` -> `catchclick="handler"`
+ * `v-on:click="handler"` -> `bindclick="handler"`
+ * `v-on:click.stop="handler"` -> `catchclick="handler"`
  */
-export function transformEventBind(options: VueTransformOptions): TransformResult {
+export function transformVOn(options: VueTransformOptions): TransformResult {
   const {
     node,
   } = options
@@ -63,10 +59,7 @@ export function transformEventBind(options: VueTransformOptions): TransformResul
     rule: {
       pattern: `$${match}`,
       kind: 'attribute',
-      any: [
-        { regex: '^@' },
-        { regex: '^v-on:' },
-      ],
+      regex: '^v-on:',
     },
   }
 
@@ -77,19 +70,18 @@ export function transformEventBind(options: VueTransformOptions): TransformResul
     }
 
     const [
-      nameWithDirective,
+      directive,
       valueWithQuote,
     ] = splitAtFirstChar(attributeText, '=')
 
-    const nameMayHaveModifiers = nameWithDirective.split('@')[1]
-      ?? nameWithDirective.split('v-on:')[1]!
-    const [namePlain, ...modifiers] = nameMayHaveModifiers.split('.')
-    const isStop = modifiers.includes('stop')
+    const [, dArg, dModifiers] = resolveVueDirective(directive)
+    const isStop = dModifiers.includes('stop')
     const bind: 'bind' | 'catch' = isStop ? 'catch' : 'bind'
     const events: Record<string, string> = {
       click: 'tap',
+      // ...
     }
-    const name = events[namePlain!] || namePlain
+    const name = events[dArg!] || dArg
 
     const value = valueWithQuote!.slice(1, -1)
 
@@ -134,7 +126,7 @@ export function transformVFor(options: VueTransformOptions): TransformResult {
         kind: 'attribute',
         any: [
           {
-            regex: '^v-for|^:key|^v-bind:key',
+            regex: '^v-for|^v-bind:key',
           },
         ],
       },
@@ -143,12 +135,12 @@ export function transformVFor(options: VueTransformOptions): TransformResult {
       .map((attributeNode) => {
         const attributeText = attributeNode.text()
         const [
-          _name,
+          derictive,
           valueWithQuote,
         ] = splitAtFirstChar(attributeText, '=')
         const value = valueWithQuote!.slice(1, -1)
 
-        if (_name.startsWith('v-for')) {
+        if (derictive.startsWith('v-for')) {
           const expressionNode = parse(Lang.TypeScript, value).root().find({
             rule: {
               kind: 'sequence_expression',
@@ -165,7 +157,7 @@ export function transformVFor(options: VueTransformOptions): TransformResult {
           ]
           return attributeNode.replace(`wx:for="{{ ${list} }}" wx:for-index="${index}" wx:for-item="${item}"`)
         }
-        else if (_name.startsWith(':key') || _name.startsWith('v-bind:key')) {
+        else if (derictive.startsWith('v-bind:key')) {
           key = value === item ? '*this' : value.split('.')[1]
           return attributeNode.replace(`wx:key="${key}"`)
         }
@@ -210,7 +202,7 @@ export function transformVIf(options: VueTransformOptions): TransformResult {
     }
 
     const [
-      name,
+      directive,
       valueWithQuote,
     ] = splitAtFirstChar(attributeText, '=')
     const value = valueWithQuote?.slice(1, -1)
@@ -220,11 +212,11 @@ export function transformVIf(options: VueTransformOptions): TransformResult {
       'v-else-if': 'elif',
       'v-else': 'else',
     }
-    const directive = directives[name] || name
+    const _directive = directives[directive] || directive
 
-    return directive === 'v-else'
-      ? node.replace(`wx:${directive}`)
-      : node.replace(`wx:${directive}="{{ ${value} }}"`)
+    return _directive === 'v-else'
+      ? node.replace(`wx:${_directive}`)
+      : node.replace(`wx:${_directive}="{{ ${value} }}"`)
   }).filter(Boolean) as Edit[]
 
   return {
@@ -234,7 +226,6 @@ export function transformVIf(options: VueTransformOptions): TransformResult {
 
 /**
  * @example
- * `v-model="value"` -> `model:value="{{ value }}"`
  * `v-model:prop="value"` -> `model:prop="{{ value }}"`
  */
 export function transformVModel(options: VueTransformOptions): TransformResult {
@@ -262,10 +253,10 @@ export function transformVModel(options: VueTransformOptions): TransformResult {
       nameWithDirective,
       valueWithQuote,
     ] = splitAtFirstChar(attributeText, '=')
-    const [, prop] = nameWithDirective.split(':')
+    const [, dArg] = resolveVueDirective(nameWithDirective)
     const value = valueWithQuote!.slice(1, -1)
 
-    return node.replace(`model:${prop || 'value'}="{{ ${value} }}"`)
+    return node.replace(`model:${dArg}="{{ ${value} }}"`)
   }).filter(Boolean) as Edit[]
 
   return {

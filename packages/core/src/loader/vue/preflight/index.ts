@@ -6,6 +6,7 @@ import {
 } from '../../../shared/transform/script'
 import {
   expandAttributeSameNameShorthand,
+  expandDerictiveShorthand,
 } from './template'
 
 export function preflight(options: VueTransformerOptions): void {
@@ -18,6 +19,7 @@ export function preflight(options: VueTransformerOptions): void {
    */
 
   const templateTransforms = [
+    expandDerictiveShorthand, // order sensitive
     expandAttributeSameNameShorthand,
   ]
 

@@ -9,12 +9,12 @@ import {
   trsnaformPlatformAPI,
 } from './script'
 import {
-  transformAttributeBind,
   transformElementName,
-  transformEventBind,
+  transformVBind,
   transformVFor,
   transformVIf,
   transformVModel,
+  transformVOn,
 } from './template'
 
 export function weixin(options: VueTransformerOptions): void {
@@ -30,8 +30,8 @@ export function weixin(options: VueTransformerOptions): void {
     transformVIf,
     transformVFor,
     transformVModel,
-    transformAttributeBind,
-    transformEventBind,
+    transformVBind,
+    transformVOn,
     transformElementName,
   ]
 
