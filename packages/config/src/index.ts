@@ -1,4 +1,4 @@
-import type { Platform } from '@unmini/core'
+import type { LoaderOptions, LoaderReturns, Platform } from '@unmini/core'
 import type { SFCParseOptions } from '@vue/compiler-sfc'
 import type { SetRequiredDeep } from 'type-fest'
 import process from 'node:process'
@@ -127,6 +127,12 @@ export interface Config {
    * 转换配置
    */
   transform?: {
+    /**
+     * custom converters
+     *
+     * 自定义转换器
+     */
+    loaders?: Record<string, (options: LoaderOptions) => LoaderReturns>
     /**
      * files will be written directly without conversion
      *

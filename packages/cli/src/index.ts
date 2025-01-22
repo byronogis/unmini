@@ -97,6 +97,11 @@ export async function handle(_options: CliOptions): Promise<void> {
   async function generate(options: ResolvedCliOptions): Promise<void> {
     const sourceCache = Array.from(fileCache).map(([id, content]) => ({ id, content }))
 
+    /**
+     * transform files
+     *
+     * 转换文件
+     */
     const transformedList = sourceCache.map(({ id, content }) => {
       try {
         const shouldTransform = id.split('.').at(-2) === options.subExtension
@@ -115,6 +120,11 @@ export async function handle(_options: CliOptions): Promise<void> {
       }
     }).flat()
 
+    /**
+     * output files by directory structure
+     *
+     * 按照目录结构输出文件
+     */
     await Promise.all(transformedList.map(async ({ id, content, ext }) => {
       const absOriginal = resolve(id)
 

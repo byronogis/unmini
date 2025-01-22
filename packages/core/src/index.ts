@@ -6,7 +6,7 @@ import { loader } from './loader'
 
 export * from './constant'
 export * from './errors'
-export * from './loader/vue/context'
+export * from './loader'
 export * from './types'
 
 export function resolveOptions(options: CoreOptions): ResolvedCoreOptions {

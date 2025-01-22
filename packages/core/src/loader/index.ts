@@ -15,6 +15,13 @@ export function loader(options: LoaderOptions): LoaderReturns {
     throw new CoreError('[@unmini/core] Missing file extension')
   }
 
+  /**
+   * use custom loader if exists
+   */
+  if (options.resolvedConfig.transform?.loaders?.[_ext]) {
+    return options.resolvedConfig.transform.loaders[_ext](options)
+  }
+
   switch (_ext) {
     case 'vue':
       return vueLoader(options)
