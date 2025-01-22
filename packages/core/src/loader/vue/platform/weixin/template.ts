@@ -127,6 +127,8 @@ export function transformElementName(options: VueTransformOptions): TransformRes
     const elements: Record<string, string> = {
       div: 'view',
       span: 'text',
+      ul: 'view',
+      li: 'view',
     }
     const element = elements[text] || text
 
