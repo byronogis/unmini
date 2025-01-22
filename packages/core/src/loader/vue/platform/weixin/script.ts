@@ -85,22 +85,13 @@ export function trsnaformDataDefine(options: VueTransformOptions): TransformResu
     rule: {
       regex: '^data',
       kind: 'method_definition',
-      inside: {
-        kind: 'object',
-        inside: {
-          kind: 'export_statement',
-        },
-      },
     },
   }
 
   const dataNode = node.find(matcher)
   const dataReturnNode = dataNode?.find({
     rule: {
-      kind: 'object',
-      inside: {
-        kind: 'return_statement',
-      },
+      kind: 'return_statement',
     },
   })
 
@@ -112,7 +103,9 @@ export function trsnaformDataDefine(options: VueTransformOptions): TransformResu
     }
   }
 
-  const edits = [dataNode!.replace(`data: ${text}`)] as Edit[]
+  const _text = text.replace(/^return/, '')
+
+  const edits = [dataNode!.replace(`data: ${_text}`)] as Edit[]
 
   return {
     edits,
