@@ -85,6 +85,7 @@ export interface Config {
    * e.g. `page.mini.vue` `utils.mini.ts`
    *
    * 子扩展名, 识别需要转换文件
+   *
    * patterns 的结果中不包含子扩展名的文件将被直接复制
    *
    * @default 'mini'
@@ -172,8 +173,4 @@ export interface ResolvedConfig extends SetRequiredDeep<
    * 源码目录的完整路径
    */
   srcDirFull: string
-  /**
-   * Whether the configuration is resolved
-   */
-  resolved: true
 }
