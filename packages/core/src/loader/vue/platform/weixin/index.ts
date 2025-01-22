@@ -9,7 +9,8 @@ import {
   trsnaformPlatformAPI,
 } from './script'
 import {
-  trsnaformAttributeBind,
+  transformAttributeBind,
+  transformEventBind,
 } from './template'
 
 export function weixin(options: VueTransformerOptions): void {
@@ -22,7 +23,8 @@ export function weixin(options: VueTransformerOptions): void {
    */
 
   const templateTransforms = [
-    trsnaformAttributeBind,
+    transformAttributeBind,
+    transformEventBind,
   ]
 
   templateTransforms.forEach((transform) => {

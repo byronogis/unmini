@@ -18,3 +18,14 @@ export function transformTsToJs(code: string): string {
 
   return res?.code || ''
 }
+
+export function splitAtFirstChar(str: string, char: string): [string, string | undefined] {
+  const index = str.indexOf(char)
+  if (index === -1) {
+    return [str, undefined]
+  }
+  return [
+    str.substring(0, index),
+    str.substring(index + 1),
+  ]
+}
