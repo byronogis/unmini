@@ -8,7 +8,11 @@ export function transformTsToJs(code: string): string {
    */
 
   const res = babel.transformSync(code, {
-    presets: ['@babel/preset-typescript'],
+    presets: [
+      ['@babel/preset-typescript', {
+        // onlyRemoveTypeImports: true,
+      }],
+    ],
     filename: 'script.ts',
   })
 
