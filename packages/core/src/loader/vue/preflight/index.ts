@@ -1,4 +1,4 @@
-import type { TransformerOptions } from '../../../types'
+import type { VueTransformerOptions } from '../'
 import { Lang, parse } from '@ast-grep/napi'
 import {
   trsnaformUnMiniImportFilePath,
@@ -7,7 +7,7 @@ import {
   expandAttributeSameNameShorthand,
 } from './template'
 
-export function preflight(options: TransformerOptions): void {
+export function preflight(options: VueTransformerOptions): void {
   const {
     ctx,
   } = options

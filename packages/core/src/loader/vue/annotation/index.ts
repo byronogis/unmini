@@ -1,7 +1,7 @@
-import type { TransformerOptions } from '../../../types'
+import type { VueTransformerOptions } from '..'
 import { transformTsToJs } from '../../../utils'
 
-export function annotation(options: TransformerOptions): void {
+export function annotation(options: VueTransformerOptions): void {
   const {
     ctx,
   } = options

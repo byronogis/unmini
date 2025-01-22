@@ -1,11 +1,12 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
-import type { TransformOptions, TransformResult } from '../../../types'
+import type { VueTransformOptions } from '../'
+import type { TransformResult } from '../../../types'
 
 /**
  * @example
  * `import { formatTime } from '../utils/index.mini'` -> `import { formatTime } from '../utils/index'`
  */
-export function trsnaformUnMiniImportFilePath(options: TransformOptions): TransformResult {
+export function trsnaformUnMiniImportFilePath(options: VueTransformOptions): TransformResult {
   const {
     node,
     ctx,

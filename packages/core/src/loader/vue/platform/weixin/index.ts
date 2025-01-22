@@ -1,4 +1,4 @@
-import type { TransformerOptions } from '../../../../types'
+import type { VueTransformerOptions } from '../../'
 import { Lang, parse } from '@ast-grep/napi'
 import {
   trsnaformDataAssignment,
@@ -12,7 +12,7 @@ import {
   trsnaformAttributeBind,
 } from './template'
 
-export function weixin(options: TransformerOptions): void {
+export function weixin(options: VueTransformerOptions): void {
   const {
     ctx,
   } = options

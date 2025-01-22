@@ -1,5 +1,6 @@
 import type { SFCBlock, SFCScriptBlock, SFCStyleBlock, SFCTemplateBlock } from '@vue/compiler-sfc'
 import type { BlockContents, ResolvedCoreOptions } from '../..'
+import type { BaseContext } from '../../types/transformer'
 import { parse as sfcParse } from '@vue/compiler-sfc'
 import { CoreError } from '../../errors'
 
@@ -35,11 +36,7 @@ export function getContext(options: ResolvedCoreOptions): Context {
   }
 }
 
-export interface Context {
-  /**
-   * the resolved core options
-   */
-  options: ResolvedCoreOptions
+export interface Context extends BaseContext {
   /**
    * the raw sfc code block parsed by vue compiler
    *

@@ -1,5 +1,6 @@
 import type { LoaderOptions, LoaderReturns } from '..'
-import type { BlockContents } from '../../types'
+import type { BlockContents, TransformerOptions, TransformOptions } from '../../types'
+import type { Context } from './context'
 import { FileExtensions } from '../../constant'
 import { annotation } from './annotation'
 import { getContext } from './context'
@@ -42,3 +43,6 @@ export function vueLoader(options: LoaderOptions): LoaderReturns {
     ext: FileExtensions[options.resolvedConfig.platform][name as keyof BlockContents],
   }))
 }
+
+export type VueTransformerOptions = TransformerOptions<Context>
+export type VueTransformOptions = TransformOptions<Context>

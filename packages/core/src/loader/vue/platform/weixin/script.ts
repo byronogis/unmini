@@ -1,12 +1,13 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
-import type { Platform, SourceType, TransformOptions, TransformResult } from '../../../../types'
+import type { VueTransformOptions } from '../../'
+import type { Platform, SourceType, TransformResult } from '../../../../types'
 import { PlatformAPIs } from '../../../../constant'
 
 /**
  * @example
  * `unmini.mini.API` -> `wx.API`
  */
-export function trsnaformPlatformAPI(options: TransformOptions): TransformResult {
+export function trsnaformPlatformAPI(options: VueTransformOptions): TransformResult {
   const {
     node,
     ctx,
@@ -41,7 +42,7 @@ export function trsnaformPlatformAPI(options: TransformOptions): TransformResult
  * @example
  * `unmini.global.getApp()` -> `getApp()`
  */
-export function trsnaformGlobalAPI(options: TransformOptions): TransformResult {
+export function trsnaformGlobalAPI(options: VueTransformOptions): TransformResult {
   const {
     node,
   } = options
@@ -73,7 +74,7 @@ export function trsnaformGlobalAPI(options: TransformOptions): TransformResult {
  * @example
  * `data() { return { a: 1 } }` -> `data: { a: 1 }`
  */
-export function trsnaformDataDefine(options: TransformOptions): TransformResult {
+export function trsnaformDataDefine(options: VueTransformOptions): TransformResult {
   const {
     node,
   } = options
@@ -122,7 +123,7 @@ export function trsnaformDataDefine(options: TransformOptions): TransformResult 
  * @example
  * `console.log(this.$data.a)` -> `console.log(this.data.a)`
  */
-export function trsnaformDataEvaluation(options: TransformOptions): TransformResult {
+export function trsnaformDataEvaluation(options: VueTransformOptions): TransformResult {
   const {
     node,
   } = options
@@ -173,7 +174,7 @@ export function trsnaformDataEvaluation(options: TransformOptions): TransformRes
  *
  * @see https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips/runtime_setData.html
  */
-export function trsnaformDataAssignment(options: TransformOptions): TransformResult {
+export function trsnaformDataAssignment(options: VueTransformOptions): TransformResult {
   const {
     node,
   } = options
@@ -245,7 +246,7 @@ export function trsnaformDataAssignment(options: TransformOptions): TransformRes
  * @example
  * `export default { a: 1 }` -> `App({ a: 1 })`
  */
-export function trsnaformExportDefault(options: TransformOptions): TransformResult {
+export function trsnaformExportDefault(options: VueTransformOptions): TransformResult {
   const {
     node,
     ctx,
