@@ -1,4 +1,4 @@
-export * from './transformer'
+export * from '../loader/vue/transformer'
 
 export interface BlockContents {
   template: string

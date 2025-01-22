@@ -1,24 +1,28 @@
-import type { TransformerOptions, TransformerResult } from '../../../types'
+import type { TransformerOptions } from '../../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import {
   expandAttributeSameNameShorthand,
 } from './template'
 
-export function preflight(options: TransformerOptions): TransformerResult {
+export function preflight(options: TransformerOptions): void {
   const {
     ctx,
   } = options
 
-  const templateRoot = parse(Lang.Html, ctx.blockContents.template).root()
+  /**
+   * template
+   */
 
-  const shorthand = expandAttributeSameNameShorthand({ node: templateRoot, ctx })
+  const templateTransforms = [
+    expandAttributeSameNameShorthand,
+  ]
 
-  const templateResult = templateRoot.commitEdits(shorthand.edits)
-
-  return {
-    blockContents: {
-      ...ctx.blockContents,
-      template: templateResult,
-    },
-  }
+  templateTransforms.forEach((transform) => {
+    const templateRoot = parse(Lang.Html, ctx.blockContents.template).root()
+    const { edits } = transform({
+      node: templateRoot,
+      ctx,
+    })
+    ctx.blockContents.template = templateRoot.commitEdits(edits)
+  })
 }

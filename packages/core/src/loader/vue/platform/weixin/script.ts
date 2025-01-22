@@ -276,7 +276,7 @@ export function trsnaformExportDefault(options: TransformOptions): TransformResu
     page: 'Page',
   }
 
-  const isApp = ctx.options.id.endsWith('app.mini.vue')
+  const isApp = ctx.options.id.endsWith(`app.${ctx.options.resolvedConfig.subExtension}.vue`)
   const name = isApp ? 'app' : 'component'
 
   const edits = [exportNode!.replace(`${names[name]}(${text})`)] as Edit[]

@@ -1,5 +1,5 @@
 import type { LoaderOptions, LoaderReturns } from '..'
-import type { BlockContents, TransformerResult } from '../../types'
+import type { BlockContents } from '../../types'
 import { FileExtensions } from '../../constant'
 import { annotation } from './annotation'
 import { getContext } from './context'
@@ -9,14 +9,12 @@ import { preflight } from './preflight'
 export function vueLoader(options: LoaderOptions): LoaderReturns {
   const ctx = getContext(options)
 
-  let result: TransformerResult | undefined
-
   /**
    * preflight transformer
    *
    * 预处理转换器
    */
-  result = preflight({ ctx })
+  preflight({ ctx })
 
   /**
    * platform transformer
@@ -25,7 +23,7 @@ export function vueLoader(options: LoaderOptions): LoaderReturns {
    */
   switch (options.resolvedConfig.platform) {
     case 'weixin':
-      result = weixin({ ctx })
+      weixin({ ctx })
       break
 
     default:
@@ -37,9 +35,9 @@ export function vueLoader(options: LoaderOptions): LoaderReturns {
    *
    * 注解转换器
    */
-  result = annotation({ ctx: { ...ctx, blockContents: result.blockContents } })
+  annotation({ ctx })
 
-  return Object.entries(result.blockContents).map(([name, content]) => ({
+  return Object.entries(ctx.blockContents).map(([name, content]) => ({
     content,
     ext: FileExtensions[options.resolvedConfig.platform][name as keyof BlockContents],
   }))

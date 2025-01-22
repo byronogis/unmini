@@ -1,18 +1,8 @@
 import type { Edit, SgNode } from '@ast-grep/napi'
-import type { BlockContents } from '.'
-import type { Context } from '..'
+import type { Context } from './context'
 
 export interface TransformerOptions {
   ctx: Context
-}
-
-export interface TransformerResult {
-  /**
-   * the transformed code block content
-   *
-   * 转换后的代码块
-   */
-  blockContents: BlockContents
 }
 
 export interface TransformOptions {

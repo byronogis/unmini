@@ -1,4 +1,4 @@
-import type { TransformerOptions, TransformerResult } from '../../../../types'
+import type { TransformerOptions } from '../../../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import {
   trsnaformDataAssignment,
@@ -12,7 +12,7 @@ import {
   trsnaformAttributeBind,
 } from './template'
 
-export function weixin(options: TransformerOptions): TransformerResult {
+export function weixin(options: TransformerOptions): void {
   const {
     ctx,
   } = options
@@ -21,26 +21,22 @@ export function weixin(options: TransformerOptions): TransformerResult {
    * template
    */
 
-  let templateResult = ctx.blockContents.template
-
   const templateTransforms = [
     trsnaformAttributeBind,
   ]
 
   templateTransforms.forEach((transform) => {
-    const templateRoot = parse(Lang.Html, templateResult).root()
+    const templateRoot = parse(Lang.Html, ctx.blockContents.template).root()
     const { edits } = transform({
       node: templateRoot,
       ctx,
     })
-    templateResult = templateRoot.commitEdits(edits)
+    ctx.blockContents.template = templateRoot.commitEdits(edits)
   })
 
   /**
    * script
    */
-
-  let scriptResult = ctx.blockContents.script
 
   const scriptTransforms = [
     trsnaformGlobalAPI,
@@ -52,19 +48,11 @@ export function weixin(options: TransformerOptions): TransformerResult {
   ]
 
   scriptTransforms.forEach((transform) => {
-    const scriptRoot = parse(Lang.JavaScript, scriptResult).root()
+    const scriptRoot = parse(Lang.TypeScript, ctx.blockContents.script).root()
     const { edits } = transform({
       node: scriptRoot,
       ctx,
     })
-    scriptResult = scriptRoot.commitEdits(edits)
+    ctx.blockContents.script = scriptRoot.commitEdits(edits)
   })
-
-  return {
-    blockContents: {
-      ...ctx.blockContents,
-      template: templateResult,
-      script: scriptResult,
-    },
-  }
 }
