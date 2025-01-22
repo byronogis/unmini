@@ -80,19 +80,57 @@ export function transformEventBind(options: VueTransformOptions): TransformResul
       valueWithQuote,
     ] = splitAtFirstChar(attributeText, '=')
 
-    let name = nameWithDirective.split('@')[1]
+    const nameMayHaveModifiers = nameWithDirective.split('@')[1]
       ?? nameWithDirective.split('v-on:')[1]!
-    const [namePlain, ...modifiers] = name.split('.')
+    const [namePlain, ...modifiers] = nameMayHaveModifiers.split('.')
     const isStop = modifiers.includes('stop')
     const bind: 'bind' | 'catch' = isStop ? 'catch' : 'bind'
     const events: Record<string, string> = {
       click: 'tap',
     }
-    name = events[namePlain!] || namePlain
+    const name = events[namePlain!] || namePlain
 
     const value = valueWithQuote!.slice(1, -1)
 
     return node.replace(`${bind}${name}="${value}"`)
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
+/**
+ * @example
+ * `div` -> `view`
+ * `span` -> `text`
+ */
+export function transformElementName(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  const match = 'ELEMENT'
+
+  const matcher = {
+    rule: {
+      pattern: `$${match}`,
+      kind: 'tag_name',
+    },
+  }
+
+  const edits = node.findAll(matcher).map((node) => {
+    const text = node.getMatch(match)?.text()
+    if (!text) {
+      return undefined
+    }
+
+    const elements: Record<string, string> = {
+      div: 'view',
+      span: 'text',
+    }
+    const element = elements[text] || text
+
+    return node.replace(element)
   }).filter(Boolean) as Edit[]
 
   return {

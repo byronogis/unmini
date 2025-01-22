@@ -10,6 +10,7 @@ import {
 } from './script'
 import {
   transformAttributeBind,
+  transformElementName,
   transformEventBind,
 } from './template'
 
@@ -25,6 +26,7 @@ export function weixin(options: VueTransformerOptions): void {
   const templateTransforms = [
     transformAttributeBind,
     transformEventBind,
+    transformElementName,
   ]
 
   templateTransforms.forEach((transform) => {
