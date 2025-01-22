@@ -1,4 +1,4 @@
-import type { TransformerOptions, TransformerResult } from '../types'
+import type { TransformerOptions, TransformerResult } from '../../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import {
   expandAttributeSameNameShorthand,

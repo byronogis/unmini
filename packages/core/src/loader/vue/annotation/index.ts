@@ -1,5 +1,5 @@
-import type { TransformerOptions, TransformerResult } from '../types'
-import { transformTsToJs } from '../utils'
+import type { TransformerOptions, TransformerResult } from '../../../types'
+import { transformTsToJs } from '../../../utils'
 
 export function annotation(options: TransformerOptions): TransformerResult {
   const {

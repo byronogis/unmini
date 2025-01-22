@@ -1,10 +1,10 @@
 import type { LoaderOptions, LoaderReturns } from '..'
 import type { BlockContents, TransformerResult } from '../../types'
-import { annotation } from '../../annotation'
 import { FileExtensions } from '../../constant'
-import { weixin } from '../../platform/weixin'
-import { preflight } from '../../preflight'
+import { annotation } from './annotation'
 import { getContext } from './context'
+import { weixin } from './platform/weixin'
+import { preflight } from './preflight'
 
 export function vueLoader(options: LoaderOptions): LoaderReturns {
   const ctx = getContext(options)

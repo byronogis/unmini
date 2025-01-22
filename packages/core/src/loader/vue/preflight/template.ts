@@ -1,5 +1,5 @@
 import type { NapiConfig } from '@ast-grep/napi'
-import type { TransformOptions, TransformResult } from '../types'
+import type { TransformOptions, TransformResult } from '../../../types'
 
 /**
  * @see https://vuejs.org/guide/essentials/template-syntax.html#same-name-shorthand

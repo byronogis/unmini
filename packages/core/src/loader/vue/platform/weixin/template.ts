@@ -1,5 +1,5 @@
 import type { Edit } from '@ast-grep/napi'
-import type { TransformOptions, TransformResult } from '../../types'
+import type { TransformOptions, TransformResult } from '../../../../types'
 
 /**
  * @example

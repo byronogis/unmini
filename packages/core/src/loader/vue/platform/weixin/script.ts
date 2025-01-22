@@ -1,6 +1,6 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
-import type { SourceType, TransformOptions, TransformResult } from '../../types'
-import { PlatformAPIs } from '../../constant'
+import type { SourceType, TransformOptions, TransformResult } from '../../../../types'
+import { PlatformAPIs } from '../../../../constant'
 
 /**
  * @example
