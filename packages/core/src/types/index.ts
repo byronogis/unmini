@@ -8,5 +8,3 @@ export interface BlockContents {
 }
 
 export type Platform = 'weixin'
-
-export type SourceType = 'app' | 'page' | 'component'

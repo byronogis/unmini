@@ -1,6 +1,6 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
 import type { VueTransformOptions } from '../../'
-import type { Platform, SourceType, TransformResult } from '../../../../types'
+import type { Platform, TransformResult } from '../../../../types'
 import { PlatformAPIs } from '../../../../constant'
 
 /**
@@ -249,10 +249,9 @@ export function trsnaformDataAssignment(options: VueTransformOptions): Transform
 export function trsnaformExportDefault(options: VueTransformOptions): TransformResult {
   const {
     node,
-    ctx,
   } = options
 
-  const match = 'OBJECT'
+  const match = 'DEFINE'
 
   const matcher: NapiConfig = {
     rule: {
@@ -271,16 +270,17 @@ export function trsnaformExportDefault(options: VueTransformOptions): TransformR
     }
   }
 
-  const names: Record<SourceType, string> = {
-    app: 'App',
-    component: 'Component',
-    page: 'Page',
+  const names: Record<string, string> = {
+    defineApp: 'App',
+    defineComponent: 'Component',
+    definePage: 'Page',
   }
 
-  const isApp = ctx.options.id.endsWith(`app.${ctx.options.resolvedConfig.subExtension}.vue`)
-  const name = isApp ? 'app' : 'component'
+  const _text = text.replace(/^.*(defineApp|defineComponent|definePage)/, (_, name) => {
+    return names[name]
+  })
 
-  const edits = [exportNode!.replace(`${names[name]}(${text})`)] as Edit[]
+  const edits = [exportNode!.replace(_text)] as Edit[]
 
   return {
     edits,

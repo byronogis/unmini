@@ -46,6 +46,14 @@
     "test": "vitest",
     "clear": "rimraf dist"
   },
+  "peerDependencies": {
+    "vue": "^3"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "miniprogram-api-typings": "^4.0.4"
   },
