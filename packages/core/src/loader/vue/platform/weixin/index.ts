@@ -12,6 +12,8 @@ import {
   transformAttributeBind,
   transformElementName,
   transformEventBind,
+  transformVFor,
+  transformVIf,
 } from './template'
 
 export function weixin(options: VueTransformerOptions): void {
@@ -24,6 +26,8 @@ export function weixin(options: VueTransformerOptions): void {
    */
 
   const templateTransforms = [
+    transformVIf,
+    transformVFor,
     transformAttributeBind,
     transformEventBind,
     transformElementName,
