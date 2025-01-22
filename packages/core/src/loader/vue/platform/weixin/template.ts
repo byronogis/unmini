@@ -213,7 +213,7 @@ export function transformVIf(options: VueTransformOptions): TransformResult {
       name,
       valueWithQuote,
     ] = splitAtFirstChar(attributeText, '=')
-    const value = valueWithQuote!.slice(1, -1)
+    const value = valueWithQuote?.slice(1, -1)
 
     const directives: Record<string, string> = {
       'v-if': 'if',
@@ -222,7 +222,9 @@ export function transformVIf(options: VueTransformOptions): TransformResult {
     }
     const directive = directives[name] || name
 
-    return node.replace(`wx:${directive}="{{ ${value} }}"`)
+    return directive === 'v-else'
+      ? node.replace(`wx:${directive}`)
+      : node.replace(`wx:${directive}="{{ ${value} }}"`)
   }).filter(Boolean) as Edit[]
 
   return {
