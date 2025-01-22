@@ -63,6 +63,7 @@ export function removeUnMiniPolyfillImport(options: TransformOptions): Transform
     rule: {
       pattern: `$${match}`,
       kind: 'import_statement',
+      regex: 'unmini/polyfill',
     },
   }
 
