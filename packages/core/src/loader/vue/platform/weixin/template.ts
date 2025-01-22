@@ -234,6 +234,47 @@ export function transformVIf(options: VueTransformOptions): TransformResult {
 
 /**
  * @example
+ * `v-model="value"` -> `model:value="{{ value }}"`
+ * `v-model:prop="value"` -> `model:prop="{{ value }}"`
+ */
+export function transformVModel(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  const match = 'V_MODEL'
+
+  const matcher = {
+    rule: {
+      pattern: `$${match}`,
+      kind: 'attribute',
+      regex: '^v-model',
+    },
+  }
+
+  const edits = node.findAll(matcher).map((node) => {
+    const attributeText = node.getMatch(match)?.text()
+    if (!attributeText) {
+      return undefined
+    }
+
+    const [
+      nameWithDirective,
+      valueWithQuote,
+    ] = splitAtFirstChar(attributeText, '=')
+    const [, prop] = nameWithDirective.split(':')
+    const value = valueWithQuote!.slice(1, -1)
+
+    return node.replace(`model:${prop || 'value'}="{{ ${value} }}"`)
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
+
+/**
+ * @example
  * `div` -> `view`
  * `span` -> `text`
  * `template` -> `block`
