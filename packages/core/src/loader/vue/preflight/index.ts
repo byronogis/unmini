@@ -1,6 +1,9 @@
 import type { TransformerOptions } from '../../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import {
+  trsnaformUnMiniImportFilePath,
+} from './script'
+import {
   expandAttributeSameNameShorthand,
 } from './template'
 
@@ -24,5 +27,22 @@ export function preflight(options: TransformerOptions): void {
       ctx,
     })
     ctx.blockContents.template = templateRoot.commitEdits(edits)
+  })
+
+  /**
+   * script
+   */
+
+  const scriptTransforms = [
+    trsnaformUnMiniImportFilePath,
+  ]
+
+  scriptTransforms.forEach((transform) => {
+    const scriptRoot = parse(Lang.TypeScript, ctx.blockContents.script).root()
+    const { edits } = transform({
+      node: scriptRoot,
+      ctx,
+    })
+    ctx.blockContents.script = scriptRoot.commitEdits(edits)
   })
 }
