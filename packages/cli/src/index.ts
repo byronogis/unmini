@@ -19,9 +19,7 @@ export async function handle(_options: CliOptions): Promise<void> {
   const options = await loadConfig<CliOptions>(_options) as ResolvedCliOptions
 
   if (!options.patterns?.length) {
-    throw new PrettyError(
-      `No glob patterns, try ${cyan(`${name} <path/to/**/*>`)}`,
-    )
+    handleError(new PrettyError(`No glob patterns, try ${cyan(`${name} <path/to/**/*>`)}`))
   }
 
   const files = await glob([

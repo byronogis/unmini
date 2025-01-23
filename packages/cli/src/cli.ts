@@ -12,7 +12,7 @@ const main = defineCommand({
     patterns: {
       type: 'positional',
       description: 'Glob pattern',
-      required: true,
+      required: false,
     },
     platform: {
       type: 'string',
