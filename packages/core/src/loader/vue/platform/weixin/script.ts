@@ -3,7 +3,64 @@ import type { VueTransformOptions } from '../../'
 import type { Platform, TransformResult } from '../../../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import { PlatformAPIs } from '../../../../constant'
-import { resolveCode } from '../../../../utils'
+import { resolveCode, resolveRoutePath } from '../../../../utils'
+
+/**
+ * @example
+ * `this.$router.push({ path: '/path/to/page' })` -> `wx.navigateTo({ url: '/path/to/page' })`
+ */
+export function transformRouter(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  const match = {
+    name: 'NAME',
+    arg: 'ARG',
+  }
+
+  const names: Record<string, string> = {
+    push: 'navigateTo',
+    // ...
+  }
+
+  const matcher: NapiConfig = {
+    rule: {
+      pattern: `this.$router.$${match.name}($${match.arg})`,
+      kind: 'call_expression',
+    },
+  }
+
+  const edits = node.findAll(matcher).map((_node) => {
+    const nameText = _node.getMatch(match.name)?.text()
+    const argText = _node.getMatch(match.arg)?.text()
+    if (!nameText || !argText) {
+      return undefined
+    }
+
+    if (!argText.startsWith('{')) {
+      const argTextRemovedQuotes = argText.slice(1, -1)
+      return _node.replace(`this.pageRouter.${names[nameText]}({ url: '${resolveRoutePath(argTextRemovedQuotes, options)}' })`)
+    }
+
+    const pathPairText = parse(Lang.TypeScript, argText).root().find({
+      rule: {
+        kind: 'pair',
+        regex: '^path:',
+      },
+    })!.text()
+
+    const url = resolveRoutePath(pathPairText.replace('path:', '').trim().slice(1, -1), options)
+
+    const _argText = argText.replace(pathPairText, `url: '${url}'`)
+
+    return _node.replace(`this.pageRouter.${names[nameText]}(${_argText})`)
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
 
 /**
  * @example

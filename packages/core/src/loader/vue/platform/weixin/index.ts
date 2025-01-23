@@ -4,6 +4,7 @@ import {
   transformEmit,
   transformPropertyDefine,
   transformPropertyEvaluation,
+  transformRouter,
   trsnaformDataAssignment,
   trsnaformDataDefine,
   trsnaformDataEvaluation,
@@ -56,6 +57,7 @@ export function weixin(options: VueTransformerOptions): void {
    */
 
   const scriptTransforms = [
+    transformRouter,
     trsnaformGlobalAPI,
     trsnaformPlatformAPI,
     transformPropertyDefine,

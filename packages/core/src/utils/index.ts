@@ -1,4 +1,6 @@
+import type { TransformOptions } from '../types/transformer'
 import * as babel from '@babel/core'
+import { join, parse, relative } from 'pathe'
 
 export function transformTsToJs(code: string): string {
   /**
@@ -54,4 +56,43 @@ export function resolveVueDirective(derictive: string): [string, string | undefi
 export function resolveCode(code: string): any {
   // eslint-disable-next-line no-new-func
   return new Function(`return ${code}`)()
+}
+
+/**
+ * transform unplugin-vue-router path to miniprogram path
+ *
+ * 转换 unplugin-vur-router 的路径为小程序路径
+ */
+export function resolveRoutePath(path: string, options: TransformOptions): string {
+  const {
+    id: file,
+    resolvedConfig: {
+      transform: {
+        router: {
+          prefix,
+        },
+      },
+      routesDirFull,
+    },
+  } = options.ctx.options
+
+  /**
+   * remove prefix
+   */
+  if (prefix && path.startsWith(prefix)) {
+    path = path.substring(prefix.length)
+  }
+
+  /**
+   * the full path of the route(file)
+   *
+   * 路由(文件)的完整路径
+   */
+  path = join(routesDirFull, path)
+
+  const filePath = parse(file).dir
+
+  const relativePath = relative(filePath, path)
+
+  return relativePath
 }

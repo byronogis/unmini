@@ -14,6 +14,12 @@ export const defaultConfig: Config = {
   subExtension: 'mini',
   outputDir: 'unmini-output',
   clear: false,
+  transform: {
+    router: {
+      prefix: '',
+      routesDir: 'pages',
+    },
+  },
 }
 
 export function resolveConfig(...configs: Config[]): ResolvedConfig {
@@ -28,6 +34,7 @@ export function resolveConfig(...configs: Config[]): ResolvedConfig {
     ...config,
     outputDirFull: resolve(config.cwd, config.outputDir!),
     srcDirFull: resolve(config.cwd, config.srcDir),
+    routesDirFull: resolve(config.cwd, config.srcDir, config.transform!.router!.routesDir!),
   } as ResolvedConfig
 }
 
@@ -111,6 +118,22 @@ export interface Config {
    * 转换配置
    */
   transform?: {
+    router?: {
+      /**
+       * 指定的前缀会在解析时移除, 比如可以用于当在 vite 中指定 base 时
+       *
+       * @default '
+       */
+      prefix?: string
+      /**
+       * directory to store the route file, relative to srcDir
+       *
+       * 存放路由文件的目录, 相对于 srcDir
+       *
+       * @default pages
+       */
+      routesDir?: string
+    }
     /**
      * custom converters
      *
@@ -156,6 +179,7 @@ export interface ResolvedConfig extends SetRequiredDeep<
   | 'block' | 'block.config' | 'patterns' | 'subExtension'
   | 'cwd' | 'srcDir' | 'outputDir' | 'clear'
   | 'platform'
+  | 'transform' | 'transform.router' | 'transform.router.prefix' | 'transform.router.routesDir'
 > {
   /**
    * Full path to output directory
@@ -169,4 +193,10 @@ export interface ResolvedConfig extends SetRequiredDeep<
    * 源码目录的完整路径
    */
   srcDirFull: string
+  /**
+   * Full path to the directory where the route file is stored
+   *
+   * 存放路由文件的目录的完整路径
+   */
+  routesDirFull: string
 }
