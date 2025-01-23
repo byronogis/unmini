@@ -1,6 +1,9 @@
 import type { VueTransformerOptions } from '../../'
 import { Lang, parse } from '@ast-grep/napi'
 import {
+  transformEmit,
+  transformPropertyDefine,
+  transformPropertyEvaluation,
   trsnaformDataAssignment,
   trsnaformDataDefine,
   trsnaformDataEvaluation,
@@ -51,6 +54,9 @@ export function weixin(options: VueTransformerOptions): void {
   const scriptTransforms = [
     trsnaformGlobalAPI,
     trsnaformPlatformAPI,
+    transformPropertyDefine,
+    transformPropertyEvaluation,
+    transformEmit,
     trsnaformDataDefine,
     trsnaformDataEvaluation,
     trsnaformDataAssignment,

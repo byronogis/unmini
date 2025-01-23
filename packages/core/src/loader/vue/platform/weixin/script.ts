@@ -1,7 +1,9 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
 import type { VueTransformOptions } from '../../'
 import type { Platform, TransformResult } from '../../../../types'
+import { Lang, parse } from '@ast-grep/napi'
 import { PlatformAPIs } from '../../../../constant'
+import { resolveCode } from '../../../../utils'
 
 /**
  * @example
@@ -63,6 +65,126 @@ export function trsnaformGlobalAPI(options: VueTransformOptions): TransformResul
     }
 
     return _node.replace(text)
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
+
+/**
+ * @example
+ * `props: { foo: String }` -> `properties: { foo: { type: String} }`
+ * `props: { foo: { type: String, default: 'foo' } }` -> `properties: { foo: { type: String, value: 'foo' } }`
+ * `props: { foo: { type: String, default: () => 'foo' } }` -> `properties: { foo: { type: String, value: 'foo' } }`
+ * `props: { bar: { type: Object, default: () => ({ bar: 'bar' })} }` -> `properties: { foo: { type: String, value: { bar: 'bar' } } }`
+ */
+export function transformPropertyDefine(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  // const match = 'PROPS'
+
+  const matcher: NapiConfig = {
+    rule: {
+      kind: 'pair',
+      regex: '^props:',
+
+    },
+  }
+
+  const edits = node.findAll(matcher).map((_node) => {
+    const text = _node.text()
+    if (!text) {
+      return undefined
+    }
+
+    const _text = text.replace('props', 'properties')
+
+    const propsExpression = resolveCode(`{ ${_text} }`).properties
+    const properties = Object.entries(propsExpression).map(([key, value]) => {
+      if (typeof value !== 'object') {
+        return `${key}: { type: ${(value as () => void)?.name} }`
+      }
+
+      const {
+        type,
+        default: _default,
+      } = value as Record<string, any>
+      if (typeof _default === 'function') {
+        return `${key}: { type: ${(type as () => void)?.name}, value: ${JSON.stringify(_default())} }`
+      }
+      else {
+        return `${key}: { type: ${(type as () => void)?.name}, value: ${JSON.stringify(_default)} }`
+      }
+    }).join(', ')
+
+    return _node.replace(`properties: { ${properties} }`)
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
+
+/**
+ * @example
+ * `this.$props.foo` -> `this.data.foo`
+ */
+export function transformPropertyEvaluation(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  const text = node.text()
+  const _text = text.replace(/this\.\$props/g, 'this.data')
+  const edits = [node.replace(_text)] as Edit[]
+
+  return {
+    edits,
+  }
+}
+
+/**
+ * @example
+ * `this.$emit('foo', { detail: name })` -> `this.triggerEvent('foo', name)`
+ * `this.$emit('foo', { detail: { name } })` -> `this.triggerEvent('foo', { name })`
+ */
+export function transformEmit(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  const match = 'EMIT'
+
+  const matcher: NapiConfig = {
+    rule: {
+      pattern: `this.$emit($$$${match})`,
+      kind: 'call_expression',
+    },
+  }
+
+  const edits = node.findAll(matcher).map((_node) => {
+    const texts = _node.getMultipleMatches(match).map(i => i.text()).filter(i => i !== ',')
+    if (!texts.length) {
+      return undefined
+    }
+
+    const [
+      eventName,
+      eventArgument,
+      eventOptions,
+    ] = texts
+
+    const eventArgumentText = parse(Lang.TypeScript, eventArgument).root().find({
+      rule: {
+        kind: 'pair',
+        regex: '^detail:',
+      },
+    })?.text().replace('detail:', '')
+
+    return _node.replace(`this.triggerEvent(${eventName}, ${eventArgumentText}, ${eventOptions})`)
   }).filter(Boolean) as Edit[]
 
   return {
@@ -238,6 +360,7 @@ export function trsnaformDataAssignment(options: VueTransformOptions): Transform
 /**
  * @example
  * `export default unmini.defineApp({ a: 1 })` -> `App({ a: 1 })`
+ * `export default unmini.defineComponent({ a: 1 })` -> `Component({ a: 1 })`
  */
 export function trsnaformExportDefault(options: VueTransformOptions): TransformResult {
   const {

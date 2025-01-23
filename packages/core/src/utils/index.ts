@@ -47,3 +47,11 @@ export function resolveVueDirective(derictive: string): [string, string | undefi
   const [arg, ...modifiers] = rest?.split('.') || []
   return [name, arg, modifiers]
 }
+
+/**
+ * resolve code string to executable code
+ */
+export function resolveCode(code: string): any {
+  // eslint-disable-next-line no-new-func
+  return new Function(`return ${code}`)()
+}
