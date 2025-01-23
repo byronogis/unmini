@@ -18,6 +18,8 @@ import {
   transformVIf,
   transformVModel,
   transformVOn,
+  transformVSlot,
+  transformVSlotTagName,
 } from './template'
 
 export function weixin(options: VueTransformerOptions): void {
@@ -35,7 +37,9 @@ export function weixin(options: VueTransformerOptions): void {
     transformVModel,
     transformVBind,
     transformVOn,
-    transformElementName,
+    transformVSlot,
+    transformVSlotTagName,
+    transformElementName, // order sensitive
   ]
 
   templateTransforms.forEach((transform) => {

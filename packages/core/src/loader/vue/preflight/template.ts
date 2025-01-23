@@ -43,6 +43,7 @@ export function expandAttributeSameNameShorthand(options: VueTransformOptions): 
  * `@click` -> `v-on:click`
  * `@click.stop` -> `v-on:click.stop`
  * `:attr` -> `v-bind:attr`
+ * `#name` -> `v-slot:name`
  * `v-model` -> `v-model:value`
  */
 export function expandDerictiveShorthand(options: VueTransformOptions): TransformResult {
@@ -55,7 +56,7 @@ export function expandDerictiveShorthand(options: VueTransformOptions): Transfor
       pattern: `$${match}`,
       kind: 'attribute',
       any: [
-        { regex: '^@|^:|^v-model=' },
+        { regex: '^@|^:|^#|^v-model=' },
       ],
     },
   }
@@ -66,11 +67,12 @@ export function expandDerictiveShorthand(options: VueTransformOptions): Transfor
       return undefined
     }
 
-    const derictive = attributeText.match(/^(@|:|v-model)/)![0]
+    const derictive = attributeText.match(/^([@:#]|v-model)/)![0]
 
     const derictives: Record<string, string> = {
       '@': 'v-on:',
       ':': 'v-bind:',
+      '#': 'v-slot:',
       'v-model': 'v-model:value',
     }
 

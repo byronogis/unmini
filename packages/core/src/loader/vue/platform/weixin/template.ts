@@ -266,6 +266,87 @@ export function transformVModel(options: VueTransformOptions): TransformResult {
 
 /**
  * @example
+ * `v-slot:foo` -> `slot="foo"`
+ */
+export function transformVSlot(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  const match = 'SLOT'
+
+  const matcher = {
+    rule: {
+      pattern: `$${match}`,
+      kind: 'attribute',
+      regex: '^v-slot',
+    },
+  }
+
+  const edits = node.findAll(matcher).map((node) => {
+    const attributeText = node.getMatch(match)?.text()
+    if (!attributeText) {
+      return undefined
+    }
+
+    const [
+      nameWithDirective,
+      ,
+    ] = splitAtFirstChar(attributeText, '=')
+    const [, dArg] = resolveVueDirective(nameWithDirective)
+
+    return node.replace(`slot="${dArg}"`)
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
+
+/**
+ * @example
+ * `<template slot="foo"></template>` -> `<view slot="foo"></view>`
+ *
+ * #TODO view can customize by config
+ */
+export function transformVSlotTagName(options: VueTransformOptions): TransformResult {
+  const {
+    node,
+  } = options
+
+  // const match = 'SLOT_ELEMENT'
+
+  const matcher = {
+    rule: {
+      kind: 'element',
+      has: {
+        kind: 'start_tag',
+        has: {
+          kind: 'attribute',
+          regex: '^slot=',
+        },
+      },
+    },
+  }
+
+  const edits = node.findAll(matcher).map((node) => {
+    const elementText = node.text()
+    if (!elementText) {
+      return undefined
+    }
+
+    const _text = elementText.replace(/^<template([^>]*)>([\s\S]*)<\/template>$/, '<view$1>$2</view>')
+
+    return node.replace(_text)
+  }).filter(Boolean) as Edit[]
+
+  return {
+    edits,
+  }
+}
+
+/**
+ * @example
  * `div` -> `view`
  * `span` -> `text`
  * `template` -> `block`
