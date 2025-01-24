@@ -1,9 +1,10 @@
 import type { CliOptions, ResolvedCliOptions } from './types'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { loadConfig } from '@unmini/config'
 import { Context, core, CoreError } from '@unmini/core'
 import { cyan, dim, green } from 'colorette'
 import { consola } from 'consola'
-import { existsSync, mkdir, readFile, remove, writeFile } from 'fs-extra'
+import { remove } from 'fs-extra'
 import { basename, dirname, format, join, relative, resolve } from 'pathe'
 import { debounce } from 'perfect-debounce'
 import { glob } from 'tinyglobby'
@@ -32,7 +33,7 @@ export async function handle(_options: CliOptions): Promise<void> {
     expandDirectories: false,
   })
   await Promise.all(files.map(async (file) => {
-    fileCache.set(file, await readFile(file, 'utf8'))
+    fileCache.set(file, readFileSync(file, 'utf8'))
   }))
 
   consola.log(green(`${name} v${version}`))
@@ -56,7 +57,7 @@ export async function handle(_options: CliOptions): Promise<void> {
   }
 
   if (!existsSync(options.outputDirFull)) {
-    await mkdir(options.outputDirFull, { recursive: true })
+    mkdirSync(options.outputDirFull, { recursive: true })
   }
 
   await generate(options)
@@ -81,7 +82,7 @@ export async function handle(_options: CliOptions): Promise<void> {
         fileCache.delete(absolutePath)
       }
       else {
-        fileCache.set(absolutePath, await readFile(absolutePath, 'utf8'))
+        fileCache.set(absolutePath, readFileSync(absolutePath, 'utf8'))
       }
 
       debouncedBuild()
@@ -138,7 +139,7 @@ export async function handle(_options: CliOptions): Promise<void> {
       const newPath = join(options.outputDirFull, relativePath)
       const newDir = dirname(newPath)
       if (!existsSync(newDir)) {
-        await mkdir(newDir, { recursive: true })
+        mkdirSync(newDir, { recursive: true })
       }
 
       let filename = basename(id).split('.').slice(0, -1).join('.')
@@ -149,7 +150,7 @@ export async function handle(_options: CliOptions): Promise<void> {
       /**
        * exclude files while output
        */
-      if (options.transform?.output?.exclude?.length) {
+      if (options.transform.output?.exclude?.length) {
         const shouldExclude = options.transform.output.exclude.some((i) => {
           if (typeof i === 'function') {
             return i(transformed)
@@ -163,11 +164,13 @@ export async function handle(_options: CliOptions): Promise<void> {
         }
       }
 
-      await writeFile(format({
+      writeFileSync(format({
         dir: newDir,
         name: filename,
         ext,
       }), content, 'utf-8')
+
+      return true
     }))
 
     await ctx.hooks.callHook('post-output', ctx)
