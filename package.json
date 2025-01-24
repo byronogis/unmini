@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@9.15.4",
-  "description": "_description_",
+  "description": "Write mini programs using Vue single file and run them on both web pages and mini programs simultaneously.",
   "repository": {
     "type": "git",
     "url": "https://github.com/byronogis/unmini.git"
   },
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
+    "dev": "turbo run dev --filter='./packages/*'",
+    "build": "turbo run build --filter='./packages/*'",
     "automd": "turbo run automd && pnpm run root:automd",
     "release": "bumpp -r && pnpm run -r release",
     "root:automd": "echo y | pnpx @atao60/fse-cli copy packages/unmini/README.md README.md",
@@ -27,26 +27,22 @@
     "@ast-grep/napi": "^0.33.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.15.0",
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.10.7",
-    "@unocss/reset": "^65.4.2",
-    "@vitest/coverage-v8": "^3.0.3",
+    "@antfu/eslint-config": "^3.16.0",
+    "@types/node": "^22.10.10",
+    "@unmini/shared": "workspace:*",
+    "@unmini/typescript-config": "workspace:*",
+    "@vitest/coverage-v8": "^3.0.4",
     "automd": "^0.3.12",
-    "bumpp": "^9.10.1",
+    "bumpp": "^9.10.2",
     "eslint": "^9.18.0",
-    "fs-extra": "^11.3.0",
     "jiti": "^2.4.2",
-    "lint-staged": "^15.4.1",
+    "lint-staged": "^15.4.2",
     "rimraf": "^6.0.1",
     "simple-git-hooks": "^2.11.1",
     "turbo": "latest",
     "typescript": "^5.7.3",
     "unbuild": "^3.3.1",
-    "unocss": "^65.4.2",
-    "vite": "^6.0.11",
-    "vite-plugin-html": "^3.2.2",
-    "vitest": "^3.0.3"
+    "vitest": "^3.0.4"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
