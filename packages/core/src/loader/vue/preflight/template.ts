@@ -76,7 +76,7 @@ export function expandDerictiveShorthand(options: VueTransformOptions): Transfor
       'v-model': 'v-model:value',
     }
 
-    const _text = attributeText.replace(derictive, derictives[derictive])
+    const _text = attributeText.replace(derictive, derictives[derictive]!)
 
     return _node.replace(_text)
   }).filter(Boolean) as Edit[]

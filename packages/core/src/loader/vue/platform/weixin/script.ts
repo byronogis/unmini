@@ -235,7 +235,7 @@ export function transformEmit(options: VueTransformOptions): TransformResult {
       eventOptions,
     ] = texts
 
-    const eventArgumentText = parse(Lang.TypeScript, eventArgument).root().find({
+    const eventArgumentText = parse(Lang.TypeScript, eventArgument ?? '').root().find({
       rule: {
         kind: 'pair',
         regex: '^detail:',
@@ -390,7 +390,7 @@ export function trsnaformDataAssignment(options: VueTransformOptions): Transform
         break
       }
 
-      const traverseNext = arr[nextIndex].getMatch(match)
+      const traverseNext = arr[nextIndex]?.getMatch(match)
       const isSame = nodeNext?.id() === traverseNext?.id()
       if (!isSame) {
         break
@@ -402,9 +402,9 @@ export function trsnaformDataAssignment(options: VueTransformOptions): Transform
 
     acc.push(cur.replace(`this.setData({ ${_list.map((i) => {
       const _arr = i.split('=')
-      const key = _arr[0].trim()
+      const key = _arr[0]?.trim()
       const value = _arr.slice(1).join('=')
-      return `'${key.trim()}': ${value}`
+      return `'${key}': ${value}`
     }).join(', ')} })`))
 
     return acc
@@ -450,7 +450,7 @@ export function trsnaformExportDefault(options: VueTransformOptions): TransformR
   }
 
   const _text = text.replace(/^.*(defineApp|defineComponent)/, (_, name) => {
-    return names[name]
+    return names[name] ?? name
   })
 
   const edits = [exportNode!.replace(_text)] as Edit[]

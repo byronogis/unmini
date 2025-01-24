@@ -159,7 +159,7 @@ export function transformVFor(options: VueTransformOptions): TransformResult {
           return attributeNode.replace(`wx:for="{{ ${list} }}" wx:for-index="${index}" wx:for-item="${item}"`)
         }
         else if (derictive.startsWith('v-bind:key')) {
-          key = value === item ? '*this' : value.split('.')[1]
+          key = value === item ? '*this' : value.split('.')[1]!
           return attributeNode.replace(`wx:key="${key}"`)
         }
 
