@@ -1,6 +1,7 @@
 import type { SFCParseOptions } from '@vue/compiler-sfc'
-import type { SetRequiredDeep } from 'type-fest'
+import type { Arrayable, SetRequiredDeep } from 'type-fest'
 import type { LoaderOptions, LoaderReturns, Platform } from '.'
+import type { Plugin } from './plugin'
 import process from 'node:process'
 import { defu } from 'defu'
 import { resolve } from 'pathe'
@@ -20,6 +21,7 @@ export const defaultConfig: Config = {
       routesDir: 'pages',
     },
   },
+  plugins: [],
 }
 
 export function resolveConfig(...configs: Config[]): ResolvedConfig {
@@ -29,9 +31,11 @@ export function resolveConfig(...configs: Config[]): ResolvedConfig {
   config.cwd ??= process.cwd()
   config.srcDir ??= config.cwd
   config.patterns = Array.from(new Set(config.patterns)).filter(Boolean)
+  config.plugins = config.plugins?.flat() ?? []
 
   return {
     ...config,
+    resolved: true,
     outputDirFull: resolve(config.cwd, config.outputDir!),
     srcDirFull: resolve(config.cwd, config.srcDir),
     routesDirFull: resolve(config.cwd, config.srcDir, config.transform!.router!.routesDir!),
@@ -93,7 +97,13 @@ export interface Config {
   /**
    * source directory
    *
+   * determines the working directory of patterns
+   *
    * 源码目录
+   *
+   * 决定了 patterns 工作目录
+   *
+   * @default cwd
    */
   srcDir?: string
   /**
@@ -171,6 +181,14 @@ export interface Config {
      */
     parseOptions?: SFCParseOptions
   }
+  /**
+   * plugins
+   */
+  plugins?: Arrayable<Plugin>[]
+  // /**
+  //  * the options for unocss
+  //  */
+  // unocss?: boolean | UnoCSSConfig
   // [key: string]: any
 }
 
@@ -181,6 +199,18 @@ export interface ResolvedConfig extends SetRequiredDeep<
   | 'platform'
   | 'transform' | 'transform.router' | 'transform.router.prefix' | 'transform.router.routesDir'
 > {
+  /**
+   * whether the config has been resolved
+   *
+   * 配置是否已经被解析
+   */
+  resolved: true
+  /**
+   * plugins after flattening
+   *
+   * 扁平化后的插件列表
+   */
+  plugins: Plugin[]
   /**
    * Full path to output directory
    *

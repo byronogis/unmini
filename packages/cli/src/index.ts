@@ -1,6 +1,6 @@
 import type { CliOptions, ResolvedCliOptions } from './types'
 import { loadConfig } from '@unmini/config'
-import { core, CoreError } from '@unmini/core'
+import { Context, core, CoreError } from '@unmini/core'
 import { cyan, dim, green } from 'colorette'
 import { consola } from 'consola'
 import { existsSync, mkdir, readFile, remove, writeFile } from 'fs-extra'
@@ -21,6 +21,8 @@ export async function handle(_options: CliOptions): Promise<void> {
   if (!options.patterns?.length) {
     handleError(new PrettyError(`No glob patterns, try ${cyan(`${name} <path/to/**/*>`)}`))
   }
+
+  const ctx = new Context({ configs: options })
 
   const files = await glob([
     ...options.patterns,
@@ -167,5 +169,7 @@ export async function handle(_options: CliOptions): Promise<void> {
         ext,
       }), content, 'utf-8')
     }))
+
+    await ctx.hooks.callHook('post-output', ctx)
   }
 }

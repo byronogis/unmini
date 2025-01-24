@@ -1,0 +1,33 @@
+import type { Hookable } from 'hookable'
+import type { Arrayable } from 'type-fest'
+import type { Config, ResolvedConfig } from './config'
+import type { Plugin } from './plugin'
+import type { Hooks } from './plugin/hooks'
+import { createHooks } from 'hookable'
+import { resolveConfig } from './config'
+import { registerPlugins } from './plugin'
+
+export class Context {
+  config: ResolvedConfig
+  hooks: Hookable<Hooks>
+  registeredPlugins: Map<Plugin['key'], Plugin['options']> = new Map()
+
+  constructor(options: ContextOptions) {
+    this.hooks = createHooks<Hooks>()
+
+    const _configs = [options.configs].flat(2)
+    // @ts-expect-error resolved poperty is not defined in Config but in ResolvedConfig
+    this.config = _configs[0].resolved
+      ? _configs[0] as ResolvedConfig
+      : resolveConfig(..._configs)
+
+    /**
+     * register plugins
+     */
+    registerPlugins(this)
+  }
+}
+
+interface ContextOptions {
+  configs: ResolvedConfig | Arrayable<Config>
+}
