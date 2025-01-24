@@ -2,8 +2,9 @@ import type { Edit, NapiConfig } from '@ast-grep/napi'
 import type { VueTransformOptions } from '../../'
 import type { Platform, TransformResult } from '../../../../types'
 import { Lang, parse } from '@ast-grep/napi'
+import { resolveCode } from '@unmini/shared'
 import { PlatformAPIs } from '../../../../constant'
-import { resolveCode, resolveRoutePath } from '../../../../utils'
+import { resolveRoutePath } from '../../../../utils'
 
 /**
  * @example

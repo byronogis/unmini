@@ -2,7 +2,8 @@ import type { Edit } from '@ast-grep/napi'
 import type { VueTransformOptions } from '../../'
 import type { TransformResult } from '../../../../types'
 import { Lang, parse } from '@ast-grep/napi'
-import { resolveVueDirective, splitAtFirstChar } from '../../../../utils'
+import { splitAtFirstChar } from '@unmini/shared'
+import { resolveVueDirective } from '../../../../utils'
 
 /**
  * @example

@@ -1,5 +1,6 @@
 import type { TransformOptions } from '../types/transformer'
 import * as babel from '@babel/core'
+import { splitAtFirstChar } from '@unmini/shared'
 import { join, parse, relative } from 'pathe'
 
 export function transformTsToJs(code: string): string {
@@ -21,17 +22,6 @@ export function transformTsToJs(code: string): string {
   return res?.code || ''
 }
 
-export function splitAtFirstChar(str: string, char: string): [string, string | undefined] {
-  const index = str.indexOf(char)
-  if (index === -1) {
-    return [str, undefined]
-  }
-  return [
-    str.substring(0, index),
-    str.substring(index + 1),
-  ]
-}
-
 /**
  * split vue directive
  *
@@ -40,7 +30,7 @@ export function splitAtFirstChar(str: string, char: string): [string, string | u
  * name -> [name, undefined, []]
  *
  * @example
- * v-on:click.stop.prevent -> ['on', 'click', ['stop', 'prevent']]
+ * v-on:click.stop.prevent -> ['v-on', 'click', ['stop', 'prevent']]
  *
  * @see https://vuejs.org/guide/essentials/template-syntax.html#modifiers
  */
@@ -48,14 +38,6 @@ export function resolveVueDirective(derictive: string): [string, string | undefi
   const [name, rest] = splitAtFirstChar(derictive, ':')
   const [arg, ...modifiers] = rest?.split('.') || []
   return [name, arg, modifiers]
-}
-
-/**
- * resolve code string to executable code
- */
-export function resolveCode(code: string): any {
-  // eslint-disable-next-line no-new-func
-  return new Function(`return ${code}`)()
 }
 
 /**
