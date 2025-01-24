@@ -1,8 +1,8 @@
 {
-  "name": "unmini",
+  "name": "@unmini/plugin-unocss",
   "type": "module",
   "version": "0.0.0",
-  "description": "Write mini programs using Vue single file and run them on both web pages and mini programs simultaneously",
+  "description": "Using unocss for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",
@@ -19,11 +19,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    },
-    "./polyfill": {
-      "types": "./dist/polyfill.d.ts",
-      "import": "./dist/polyfill.mjs",
-      "require": "./dist/polyfill.cjs"
     }
   },
   "main": "./dist/index.mjs",
@@ -51,14 +46,16 @@
     "test": "vitest",
     "clear": "rimraf dist"
   },
+  "peerDependencies": {
+    "@unocss/cli": "^65.4.3"
+  },
   "dependencies": {
-    "@unmini/cli": "workspace:*",
-    "@unmini/config": "workspace:*",
+    "@types/fs-extra": "^11.0.4",
     "@unmini/core": "workspace:*",
-    "@unmini/plugin-unocss": "workspace:*",
-    "@unmini/polyfill": "workspace:*"
+    "fs-extra": "^11.3.0",
+    "pathe": "^2.0.2"
   },
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "@unocss/cli": "^65.4.3"
   }
 }
