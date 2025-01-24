@@ -12,6 +12,12 @@
       "persistent": true,
       "dependsOn": ["^dev"]
     },
+    "@unmini/cli#build": {
+      "dependsOn": ["^build"]
+    },
+    "@unmini/cli#typecheck": {
+      "dependsOn": ["build"]
+    },
     "build": {
       "dependsOn": ["^build", "typecheck"]
     },
@@ -22,7 +28,7 @@
       "dependsOn": ["^transit"]
     },
     "typecheck": {
-      "dependsOn": ["^transit"]
+      "dependsOn": ["^build"]
     },
     "clear": {
       "dependsOn": ["^transit"]
