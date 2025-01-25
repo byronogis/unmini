@@ -12,6 +12,9 @@
       "persistent": true,
       "dependsOn": ["^dev"]
     },
+    "playground#typecheck": {
+      "dependsOn": []
+    },
     "@unmini/cli#build": {
       "dependsOn": ["^build"]
     },

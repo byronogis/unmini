@@ -1,10 +1,12 @@
-// TODO
-// see https://github.com/unjs/unbuild/issues/248
-// see https://github.com/unjs/unbuild/issues/447
-// import { sum } from 'unmini'
-import { sum } from '../../packages/core/src'
+import type { UserModule } from './types'
+import { createApp } from 'vue'
+import App from './app.mini.vue'
 import 'virtual:uno.css'
 import './style.css'
 
-// @ts-expect-error
-console.info(`[unmini]`, { sum: sum(1, 2) })
+const app = createApp(App)
+
+Object.values(import.meta.glob<{ install: UserModule }>('./modules/*.ts', { eager: true }))
+  .forEach(i => i.install?.({ app }))
+
+app.mount('#app')
