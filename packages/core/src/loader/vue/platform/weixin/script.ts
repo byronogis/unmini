@@ -4,7 +4,7 @@ import type { Platform, TransformResult } from '../../../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import { resolveCode } from '@unmini/shared'
 import { PlatformAPIs } from '../../../../constant'
-import { resolveRoutePath } from '../../../../utils'
+import { resolveVueRoutePath } from '../../../../utils'
 
 /**
  * @example
@@ -41,7 +41,7 @@ export function transformRouter(options: VueTransformOptions): TransformResult {
 
     if (!argText.startsWith('{')) {
       const argTextRemovedQuotes = argText.slice(1, -1)
-      return _node.replace(`this.pageRouter.${names[nameText]}({ url: '${resolveRoutePath(argTextRemovedQuotes, options)}' })`)
+      return _node.replace(`this.pageRouter.${names[nameText]}({ url: '${resolveVueRoutePath(argTextRemovedQuotes, options)}' })`)
     }
 
     const pathPairText = parse(Lang.TypeScript, argText).root().find({
@@ -51,7 +51,7 @@ export function transformRouter(options: VueTransformOptions): TransformResult {
       },
     })!.text()
 
-    const url = resolveRoutePath(pathPairText.replace('path:', '').trim().slice(1, -1), options)
+    const url = resolveVueRoutePath(pathPairText.replace('path:', '').trim().slice(1, -1), options)
 
     const _argText = argText.replace(pathPairText, `url: '${url}'`)
 

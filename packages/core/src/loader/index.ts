@@ -18,8 +18,8 @@ export function loader(options: LoaderOptions): LoaderReturns {
   /**
    * use custom loader if exists
    */
-  if (options.resolvedConfig.transform?.loaders?.[_ext]) {
-    return options.resolvedConfig.transform.loaders[_ext](options)
+  if (options.resolvedConfig.loaders?.[_ext]) {
+    return options.resolvedConfig.loaders[_ext](options)
   }
 
   switch (_ext) {

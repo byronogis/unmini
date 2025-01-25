@@ -45,16 +45,16 @@ export function resolveVueDirective(derictive: string): [string, string | undefi
  *
  * 转换 unplugin-vur-router 的路径为小程序路径
  */
-export function resolveRoutePath(path: string, options: TransformOptions): string {
+export function resolveVueRoutePath(path: string, options: TransformOptions): string {
   const {
     id: file,
     resolvedConfig: {
-      transform: {
+      vue: {
         router: {
           prefix,
         },
       },
-      routesDirFull,
+      vueRoutesDirFull,
     },
   } = options.ctx.options
 
@@ -70,7 +70,7 @@ export function resolveRoutePath(path: string, options: TransformOptions): strin
    *
    * 路由(文件)的完整路径
    */
-  path = join(routesDirFull, path)
+  path = join(vueRoutesDirFull, path)
 
   const filePath = parse(file).dir
 

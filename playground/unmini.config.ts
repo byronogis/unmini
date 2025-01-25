@@ -1,9 +1,6 @@
 import { defineConfig, pluginUnoCSS } from 'unmini'
 
 export default defineConfig({
-  block: {
-    config: 'unmini',
-  },
   patterns: [
     '**/*.mini.vue',
     '**/*.mini.ts',
@@ -15,10 +12,6 @@ export default defineConfig({
   outputDir: 'dist/unmini',
   clear: true,
   transform: {
-    router: {
-      prefix: '/unmini',
-      routesDir: 'pages',
-    },
     output: {
       exclude: [
         /**
@@ -31,6 +24,15 @@ export default defineConfig({
           return false
         },
       ],
+    },
+  },
+  vue: {
+    block: {
+      config: 'unmini',
+    },
+    router: {
+      prefix: '/unmini',
+      routesDir: 'pages',
     },
   },
   plugins: [

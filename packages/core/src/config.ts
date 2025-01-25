@@ -7,15 +7,17 @@ import { defu } from 'defu'
 import { resolve } from 'pathe'
 
 export const defaultConfig: Config = {
-  block: {
-    config: 'config',
-  },
   platform: 'weixin',
   patterns: [],
   subExtension: 'mini',
   outputDir: 'unmini-output',
   clear: false,
   transform: {
+  },
+  vue: {
+    block: {
+      config: 'config',
+    },
     router: {
       prefix: '',
       routesDir: 'pages',
@@ -38,24 +40,11 @@ export function resolveConfig(...configs: Config[]): ResolvedConfig {
     resolved: true,
     outputDirFull: resolve(config.cwd, config.outputDir!),
     srcDirFull: resolve(config.cwd, config.srcDir),
-    routesDirFull: resolve(config.cwd, config.srcDir, config.transform!.router!.routesDir!),
+    vueRoutesDirFull: resolve(config.cwd, config.srcDir, config.vue!.router!.routesDir!),
   } as ResolvedConfig
 }
 
 export interface Config {
-  /**
-   * 代码块配置
-   */
-  block?: {
-    /**
-     * the name of the config block
-     *
-     * 配置项内容的代码块名称
-     *
-     * @default 'config'
-     */
-    config?: string
-  }
   /**
    * the platform of miniprogram
    *
@@ -128,28 +117,6 @@ export interface Config {
    * 转换配置
    */
   transform?: {
-    router?: {
-      /**
-       * 指定的前缀会在解析时移除, 比如可以用于当在 vite 中指定 base 时
-       *
-       * @default '
-       */
-      prefix?: string
-      /**
-       * directory to store the route file, relative to srcDir
-       *
-       * 存放路由文件的目录, 相对于 srcDir
-       *
-       * @default pages
-       */
-      routesDir?: string
-    }
-    /**
-     * custom converters
-     *
-     * 自定义转换器
-     */
-    loaders?: Record<string, (options: LoaderOptions) => LoaderReturns>
     /**
      * control the behavior of the output
      *
@@ -175,6 +142,35 @@ export interface Config {
    */
   vue?: {
     /**
+     * 代码块配置
+     */
+    block?: {
+      /**
+       * the name of the config block
+       *
+       * 配置项内容的代码块名称
+       *
+       * @default 'config'
+       */
+      config?: string
+    }
+    router?: {
+      /**
+       * 指定的前缀会在解析时移除, 比如可以用于当在 vite 中指定 base 时
+       *
+       * @default ''
+       */
+      prefix?: string
+      /**
+       * directory to store the route file, relative to srcDir
+       *
+       * 存放路由文件的目录, 相对于 srcDir
+       *
+       * @default pages
+       */
+      routesDir?: string
+    }
+    /**
      * the options for vue parser
      *
      * vue 解析器配置
@@ -182,22 +178,24 @@ export interface Config {
     parseOptions?: SFCParseOptions
   }
   /**
+   * custom converters
+   *
+   * 自定义转换器
+   */
+  loaders?: Record<string, (options: LoaderOptions) => LoaderReturns>
+  /**
    * plugins
    */
   plugins?: Arrayable<Plugin>[]
-  // /**
-  //  * the options for unocss
-  //  */
-  // unocss?: boolean | UnoCSSConfig
-  // [key: string]: any
 }
 
 export interface ResolvedConfig extends SetRequiredDeep<
   Config,
-  | 'block' | 'block.config' | 'patterns' | 'subExtension'
+  | 'patterns' | 'subExtension'
   | 'cwd' | 'srcDir' | 'outputDir' | 'clear'
   | 'platform'
-  | 'transform' | 'transform.router' | 'transform.router.prefix' | 'transform.router.routesDir'
+  | 'transform'
+  | 'vue' | 'vue.block' | 'vue.block.config' | 'vue.router' | 'vue.router.prefix' | 'vue.router.routesDir'
 > {
   /**
    * whether the config has been resolved
@@ -228,5 +226,5 @@ export interface ResolvedConfig extends SetRequiredDeep<
    *
    * 存放路由文件的目录的完整路径
    */
-  routesDirFull: string
+  vueRoutesDirFull: string
 }
