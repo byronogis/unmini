@@ -14,6 +14,9 @@
   "bugs": "https://github.com/byronogis/unmini/issues",
   "keywords": [],
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
