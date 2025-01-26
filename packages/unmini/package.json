@@ -2,7 +2,7 @@
   "name": "unmini",
   "type": "module",
   "version": "0.0.0",
-  "description": "Write mini programs using Vue single file and run them on both web pages and mini programs simultaneously",
+  "description": "Write code in your preferred way and generate mini program code",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",

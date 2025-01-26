@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "packageManager": "pnpm@9.15.4",
-  "description": "Write mini programs using Vue single file and run them on both web pages and mini programs simultaneously.",
+  "description": "Write code in your preferred way and generate mini program code.",
   "repository": {
     "type": "git",
     "url": "https://github.com/byronogis/unmini.git"
@@ -14,7 +14,7 @@
     "build": "turbo run build --filter='./packages/*'",
     "automd": "turbo run automd && pnpm run root:automd",
     "release": "bumpp -r && pnpm run -r release",
-    "root:automd": "echo y | pnpx @atao60/fse-cli copy packages/unmini/README.md README.md",
+    "root:automd": "automd --input='README*.md'",
     "root:lint": "eslint .",
     "root:lint:fix": "eslint . --fix",
     "typecheck": "turbo run typecheck",

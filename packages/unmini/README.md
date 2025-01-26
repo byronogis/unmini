@@ -12,7 +12,7 @@
 
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-Write mini programs using Vue single file and run them on both web pages and mini programs simultaneously.
+Write code in your preferred way and generate mini program code.
 
 ## Installation
 

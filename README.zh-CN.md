@@ -12,11 +12,11 @@
 
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-Code Generation Engine for Mini Programs
+小程序的代码生成引擎
 
-Write code in your preferred way and generate mini program code.
+使用让自己舒服的方式编写代码, 并最终生成小程序的代码.
 
-Should support any mini program platform.
+应该可以支持任何小程序.
 
 - [unmini](#unmini)
   - [How](#how)
@@ -28,9 +28,9 @@ Should support any mini program platform.
   - [License](#license)
 
 <details>
-<summary>You might want to write in a Vue single-file component style and convert it to separate files later, which is perfectly fine.</summary>
+<summary>也许你可能想用类似 vue 单文件的形式书写, 并在最后转换为独立的文件, 这没问题.</summary>
 
-Here's how you can write it (using WeChat Mini Program as an example):
+你可以这样写(以微信小程序为例):
 
 ```vue
 <script>
@@ -77,7 +77,7 @@ Component({
 </config>
 ```
 
-The final generated mini program code:
+最终生成小程序的代码:
 
 - xxx.wxml
 
@@ -129,27 +129,27 @@ button {
 ```
 </details>
 
-All of this can be achieved through unmini.
+这一切都可以通过 unmini 实现.
 
 ## How
 
-> Through an extensible plugin ([loader](#loader) & [plugin](#plugin)) mechanism, you can customize code generation rules and code output.
+> 通过可扩展的插件([loader](#loader) & [plugin](#plugin))机制, 你可以自定义代码生成的规则, 以及代码的输出.
 
-Files are collected through patterns, files matching the subExtension are processed by corresponding loaders, while other files are output directly.
+通过 pattern 收集文件, 对匹配 subExtension 成功的文件进行选择对应的 loader 转换处理, 其它文件则直接输出.
 
-The final files will not include the subExtension.
+最终的文件不会包含 subExtension.
 
-See examples in the [playground](./playground) directory.
+可参考 [playground](./playground) 目录下的示例.
 
 ## Usage
 
-> Examples can be found in the [playground](./playground) directory.
+> [playground](./playground) 目录下有示例.
 
 Install:
 
 ```bash
 npm i unmini
-# or use pnpm if you want
+# or use pnpm you want
 pnpm i unmini
 ```
 
@@ -160,8 +160,8 @@ import { defineConfig } from 'unmini'
 
 export default defineConfig({
   patterns: [
-    '**/*.mini.ts', // Will process with corresponding loader if there's a loader that can handle ts files
-    'project{,.private}.config.json', // Will be output directly without loader processing
+    '**/*.mini.ts', // 在具有可以处理 ts 文件的 loader 的情况下, 会执行对应 loader 的处理
+    'project{,.private}.config.json', // 不会执行 loader 的处理, 直接输出
   ],
   subExtension: 'mini',
   srcDir: 'src',
@@ -173,21 +173,21 @@ Run `npx unmini`.
 
 ## Loader
 
-Match file extensions and perform corresponding transformations.
+匹配文件后缀, 并执行对应的转换处理.
 
-Here are the built-in loaders:
+下面是内置的 loader:
 
-- [vue](./packages/loader-vue): Includes **a tiny portion** of vue syntax transformation, meaning you can write both Vue code and mini program code simultaneously (see [playground](./playground/)). You can also pass `keep: true` to preserve the original code without transformation, solely for file splitting purposes.
+- [vue](./packages/loader-vue): 内置了 **一小部分** vue 语法的转换, 也就是说你可以同时在写 vue 代码和小程序代码, (可见[playgrpund](./playground/)), 你也可以通过传递 `keep: true` 来保留原始代码而不进行转换, 单纯起到文件分割的作用.
 
-- [ts](./packages/loader-ts): Uses babel to transform ts files to js files.
+- [ts](./packages/loader-ts): 使用了 babel 转换 ts 文件为 js 文件.
 
 ## Plugin
 
-You can extend functionality through plugins during the engine's lifecycle.
+在引擎的生命周期中, 你可以通过插件来扩展功能.
 
-Here are the built-in plugins:
+下面是内置的 plugin:
 
-- [unocss](./packages/plugin-unocss): Process atomic CSS using unocss.
+- [unocss](./packages/plugin-unocss): 通过 unocss 来处理原子化 css.
 
 <!-- automd:fetch url="gh:byronogis/.github/main/snippets/readme-contrib-node-pnpm.md" -->
 
