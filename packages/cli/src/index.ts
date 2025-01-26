@@ -172,6 +172,6 @@ export async function handle(_options: CliOptions): Promise<void> {
       return true
     }))
 
-    await ctx.hooks.callHook('post-output', ctx)
+    await ctx.hooks.callHook('post-cli-output', ctx)
   }
 }

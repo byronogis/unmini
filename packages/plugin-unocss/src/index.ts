@@ -26,7 +26,7 @@ export default function unocss(options?: UnoCSSOptions): any {
           ...options,
         }
       },
-      'post-output': async (ctx) => {
+      'post-cli-output': async (ctx) => {
         await run(ctx)
       },
     },

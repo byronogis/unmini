@@ -18,7 +18,7 @@ export function resolveHooks(config: ResolvedConfig): Hookable<Hooks> {
 
 export interface Hooks<T extends BasicPluginOptions = BasicPluginOptions> {
   'pre-inject-plugin-options': (cxt: CoreContext, options: Plugin<T>['options']) => Plugin<T>['options']
-  'post-output': (cxt: CoreContext) => void
+  'post-cli-output': (cxt: CoreContext) => void
   'run-loader': (cxt: CoreContext, option: ResolvedCoreOptions) => LoaderReturns
 }
 
