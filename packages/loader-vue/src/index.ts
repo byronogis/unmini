@@ -5,6 +5,7 @@ import { defineLoader, FileExtensions } from '@unmini/core'
 import { defu } from 'defu'
 import { annotation } from './annotation'
 import { getContext } from './context'
+import { keep } from './keep'
 import { weixin } from './platform/weixin'
 import { preflight } from './preflight'
 
@@ -40,33 +41,38 @@ export default function vue(options: VueLoaderOptions = {}): Loader<ResolvedVueL
       handler(_, payload) {
         const ctx = getContext(payload)
 
-        /**
-         * preflight transformer
-         *
-         * 预处理转换器
-         */
-        preflight({ ctx })
-
-        /**
-         * platform transformer
-         *
-         * 平台转换器
-         */
-        switch (config.platform) {
-          case 'weixin':
-            weixin({ ctx })
-            break
-
-          default:
-            break
+        if (payload.loader.keep) {
+          keep({ ctx })
         }
+        else {
+          /**
+           * preflight transformer
+           *
+           * 预处理转换器
+           */
+          preflight({ ctx })
 
-        /**
-         * annotation transformer
-         *
-         * 注解转换器
-         */
-        annotation({ ctx })
+          /**
+           * platform transformer
+           *
+           * 平台转换器
+           */
+          switch (config.platform) {
+            case 'weixin':
+              weixin({ ctx })
+              break
+
+            default:
+              break
+          }
+
+          /**
+           * annotation transformer
+           *
+           * 注解转换器
+           */
+          annotation({ ctx })
+        }
 
         return Object.entries(ctx.blockContents).map(([name, content]) => ({
           content,

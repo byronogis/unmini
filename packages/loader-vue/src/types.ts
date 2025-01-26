@@ -48,6 +48,12 @@ export interface VueLoaderOptions extends BasicLoaderOptions {
     routesDir?: string
   }
   /**
+   * 保持各代码块中代码原来的模样, 不进行转换 (单纯的拆分)
+   *
+   * 但是会把引入中具有 subExtension 后缀的路径进行裁剪
+   */
+  keep?: boolean
+  /**
    * the options for vue parser
    *
    * vue 解析器配置
