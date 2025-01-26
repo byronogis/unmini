@@ -15,7 +15,7 @@ export * from './utils'
 export default function ts(_options: TSLoaderOptions = {}): Loader<TSLoaderOptions> {
   return defineLoader<TSLoaderOptions>(() => {
     return {
-      key: 'ts',
+      key: '.ts',
       options: { },
       handler(_, payload) {
         const ctx: TSContext = {

@@ -77,6 +77,15 @@ export type Loader<T extends BasicLoaderOptions = BasicLoaderOptions> =
   | ((ctx: CoreContext) => LoaderPlain<T>)
 
 export interface LoaderPlain<T extends BasicLoaderOptions = BasicLoaderOptions> {
+  /**
+   * usually the file extension
+   *
+   * it is recommended to include the dot, because it is matched by String.endsWith
+   *
+   * 一般为文件后缀名
+   *
+   * 建议附带点号, 因为是以 String.endsWith 来匹配的
+   */
   key: string
   options?: T
   handler: (cxt: CoreContext, payload: LoaderPayload<T>) => LoaderReturns

@@ -35,7 +35,7 @@ export default function vue(options: VueLoaderOptions = {}): Loader<ResolvedVueL
     const resolvedOptions = resolveVueLoaderOptions(coreCTX, options)
 
     return {
-      key: 'vue',
+      key: '.vue',
       options: resolvedOptions,
       handler(_, payload) {
         const ctx = getContext(payload)
