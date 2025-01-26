@@ -69,9 +69,6 @@ importers:
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
-      '@unmini/config':
-        specifier: workspace:*
-        version: link:../config
       '@unmini/core':
         specifier: workspace:*
         version: link:../core
@@ -104,36 +101,11 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
 
-  packages/config:
+  packages/core:
     dependencies:
-      '@unmini/core':
-        specifier: workspace:*
-        version: link:../core
       c12:
         specifier: ^2.0.1
         version: 2.0.1(magicast@0.3.5)
-    devDependencies:
-      typescript:
-        specifier: ^5.7.3
-        version: 5.7.3
-
-  packages/core:
-    dependencies:
-      '@ast-grep/napi':
-        specifier: ^0.33.1
-        version: 0.33.1
-      '@babel/core':
-        specifier: ^7.26.7
-        version: 7.26.7
-      '@babel/preset-typescript':
-        specifier: ^7.26.0
-        version: 7.26.0(@babel/core@7.26.7)
-      '@types/babel__core':
-        specifier: ^7.20.5
-        version: 7.20.5
-      '@vue/compiler-sfc':
-        specifier: ^3.5.13
-        version: 3.5.13
       defu:
         specifier: ^6.1.4
         version: 6.1.4
@@ -150,6 +122,57 @@ importers:
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
+
+  packages/loader-ts:
+    dependencies:
+      '@ast-grep/napi':
+        specifier: ^0.33.1
+        version: 0.33.1
+      '@babel/core':
+        specifier: ^7.26.7
+        version: 7.26.7
+      '@babel/preset-typescript':
+        specifier: ^7.26.0
+        version: 7.26.0(@babel/core@7.26.7)
+      '@types/babel__core':
+        specifier: ^7.20.5
+        version: 7.20.5
+      '@unmini/core':
+        specifier: workspace:*
+        version: link:../core
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
+      pathe:
+        specifier: ^2.0.2
+        version: 2.0.2
+      type-fest:
+        specifier: ^4.33.0
+        version: 4.33.0
+
+  packages/loader-vue:
+    dependencies:
+      '@ast-grep/napi':
+        specifier: ^0.33.1
+        version: 0.33.1
+      '@unmini/core':
+        specifier: workspace:*
+        version: link:../core
+      '@unmini/loader-ts':
+        specifier: workspace:*
+        version: link:../loader-ts
+      '@vue/compiler-sfc':
+        specifier: ^3.5.13
+        version: 3.5.13
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
+      pathe:
+        specifier: ^2.0.2
+        version: 2.0.2
+      type-fest:
+        specifier: ^4.33.0
+        version: 4.33.0
 
   packages/plugin-unocss:
     dependencies:
@@ -192,12 +215,15 @@ importers:
       '@unmini/cli':
         specifier: workspace:*
         version: link:../cli
-      '@unmini/config':
-        specifier: workspace:*
-        version: link:../config
       '@unmini/core':
         specifier: workspace:*
         version: link:../core
+      '@unmini/loader-ts':
+        specifier: workspace:*
+        version: link:../loader-ts
+      '@unmini/loader-vue':
+        specifier: workspace:*
+        version: link:../loader-vue
       '@unmini/plugin-unocss':
         specifier: workspace:*
         version: link:../plugin-unocss
@@ -5079,24 +5105,24 @@ snapshots:
 
   '@types/babel__core@7.20.5':
     dependencies:
-      '@babel/parser': 7.26.5
-      '@babel/types': 7.26.5
+      '@babel/parser': 7.26.7
+      '@babel/types': 7.26.7
       '@types/babel__generator': 7.6.8
       '@types/babel__template': 7.4.4
       '@types/babel__traverse': 7.20.6
 
   '@types/babel__generator@7.6.8':
     dependencies:
-      '@babel/types': 7.26.5
+      '@babel/types': 7.26.7
 
   '@types/babel__template@7.4.4':
     dependencies:
-      '@babel/parser': 7.26.5
-      '@babel/types': 7.26.5
+      '@babel/parser': 7.26.7
+      '@babel/types': 7.26.7
 
   '@types/babel__traverse@7.20.6':
     dependencies:
-      '@babel/types': 7.26.5
+      '@babel/types': 7.26.7
 
   '@types/debug@4.1.12':
     dependencies:
@@ -5495,7 +5521,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.13':
     dependencies:
-      '@babel/parser': 7.26.5
+      '@babel/parser': 7.26.7
       '@vue/shared': 3.5.13
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -5508,7 +5534,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.5.13':
     dependencies:
-      '@babel/parser': 7.26.5
+      '@babel/parser': 7.26.7
       '@vue/compiler-core': 3.5.13
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-ssr': 3.5.13
