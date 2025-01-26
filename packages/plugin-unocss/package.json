@@ -1,7 +1,7 @@
 {
   "name": "@unmini/plugin-unocss",
   "type": "module",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Using unocss for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
