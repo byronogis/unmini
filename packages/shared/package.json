@@ -1,0 +1,16 @@
+{
+  "name": "@unmini/shared",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "release": "echo @unmini/shared noneed release"
+  }
+}

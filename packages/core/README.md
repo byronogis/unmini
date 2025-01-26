@@ -1,10 +1,10 @@
-# unmini
+# @unmini/core
 
 <!-- automd:badges license codecov bundlephobia packagephobia -->
 
-[![npm version](https://img.shields.io/npm/v/unmini)](https://npmjs.com/package/unmini)
-[![npm downloads](https://img.shields.io/npm/dm/unmini)](https://npm.chart.dev/unmini)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/unmini)](https://bundlephobia.com/package/unmini)
+[![npm version](https://img.shields.io/npm/v/@unmini/core)](https://npmjs.com/package/@unmini/core)
+[![npm downloads](https://img.shields.io/npm/dm/@unmini/core)](https://npm.chart.dev/@unmini/core)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/core)](https://bundlephobia.com/package/@unmini/core)
 [![codecov](https://img.shields.io/codecov/c/gh/byronogis/unmini)](https://codecov.io/gh/byronogis/unmini)
 [![license](https://img.shields.io/github/license/byronogis/unmini)](https://github.com/byronogis/unmini/blob/main/LICENSE)
 
@@ -12,10 +12,7 @@
 
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-_description_
-
-> **Note**:
-> Replace `unmini`, `_description_` and `byronogis` globally to use this template.
+Core for [unmini](https://github.com/byronogis/unmini).
 
 ## Installation
 
@@ -23,22 +20,22 @@ _description_
 
 ```sh
 # ✨ Auto-detect
-npx nypm install unmini
+npx nypm install @unmini/core
 
 # npm
-npm install unmini
+npm install @unmini/core
 
 # yarn
-yarn add unmini
+yarn add @unmini/core
 
 # pnpm
-pnpm install unmini
+pnpm install @unmini/core
 
 # bun
-bun install unmini
+bun install @unmini/core
 
 # deno
-deno install unmini
+deno install @unmini/core
 ```
 
 <!-- /automd -->
@@ -91,7 +88,7 @@ Made by [@byronogis](https://github.com/byronogis) and [community](https://githu
 
 ---
 
-_🤖 auto updated with [automd](https://automd.unjs.io) (last updated: Wed Jan 08 2025)_
+_🤖 auto updated with [automd](https://automd.unjs.io) (last updated: Sun Jan 26 2025)_
 
 <!-- /automd -->
 

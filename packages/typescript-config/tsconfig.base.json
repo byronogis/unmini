@@ -1,0 +1,59 @@
+/* eslint-disable jsonc/sort-keys */
+// @see https://www.totaltypescript.com/tsconfig-cheat-sheet
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Base",
+  "compilerOptions": {
+    /**
+     * Language and Environment
+     */
+    "target": "ESNext",
+    "moduleDetection": "force",
+    "lib": ["ESNext"],
+    // "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    /**
+     * Modules
+     */
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "types": [
+      "@types/node"
+    ],
+    "paths": {},
+    /**
+     * Interop Constraints
+     */
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    /**
+     * Emit
+     */
+    "removeComments": false,
+    "declaration": true,
+    "sourceMap": true,
+    /**
+     * Completeness
+     */
+    "skipLibCheck": true,
+    /**
+     * JavaScript Support
+     */
+    "allowJs": true,
+    "checkJs": true,
+    /**
+     * Type Checking
+     */
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": null,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}

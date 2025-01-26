@@ -1,0 +1,63 @@
+{
+  "name": "@unmini/polyfill",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Polyfill for unmini",
+  "author": "Byron <byronogis@outlook.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/byronogis",
+  "homepage": "https://github.com/byronogis/unmini#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byronogis/unmini.git"
+  },
+  "bugs": "https://github.com/byronogis/unmini/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "start": "jiti src/index.ts",
+    "automd": "automd README.md",
+    "prepublishOnly": "pnpm run build",
+    "release": "pnpm publish",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "clear": "rimraf dist"
+  },
+  "peerDependencies": {
+    "vue": "^3"
+  },
+  "peerDependenciesMeta": {
+    "vue": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "miniprogram-api-typings": "^4.0.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

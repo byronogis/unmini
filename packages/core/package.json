@@ -1,8 +1,8 @@
 {
-  "name": "unmini",
+  "name": "@unmini/core",
   "type": "module",
   "version": "0.0.0",
-  "description": "_description_",
+  "description": "Core for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",
@@ -46,6 +46,14 @@
     "test": "vitest",
     "clear": "rimraf dist"
   },
+  "dependencies": {
+    "c12": "^2.0.1",
+    "defu": "^6.1.4",
+    "hookable": "^5.5.3",
+    "pathe": "^2.0.2",
+    "type-fest": "^4.33.0"
+  },
   "devDependencies": {
+    "typescript": "^5.7.3"
   }
 }

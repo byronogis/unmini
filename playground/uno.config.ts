@@ -9,7 +9,9 @@ import {
 
 export default defineConfig({
   presets: [
-    presetUno(),
+    presetUno({
+      preflight: 'on-demand',
+    }),
     presetIcons(),
     presetTypography(),
   ],

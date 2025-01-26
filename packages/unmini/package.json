@@ -1,0 +1,65 @@
+{
+  "name": "unmini",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Write code in your preferred way and generate mini program code",
+  "author": "Byron <byronogis@outlook.com>",
+  "license": "MIT",
+  "funding": "https://github.com/sponsors/byronogis",
+  "homepage": "https://github.com/byronogis/unmini#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byronogis/unmini.git"
+  },
+  "bugs": "https://github.com/byronogis/unmini/issues",
+  "keywords": [],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./polyfill": {
+      "types": "./dist/polyfill.d.ts",
+      "import": "./dist/polyfill.mjs",
+      "require": "./dist/polyfill.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "start": "jiti src/index.ts",
+    "automd": "automd README.md",
+    "prepublishOnly": "pnpm run build",
+    "release": "pnpm publish",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "clear": "rimraf dist"
+  },
+  "dependencies": {
+    "@unmini/cli": "workspace:*",
+    "@unmini/core": "workspace:*",
+    "@unmini/loader-ts": "workspace:*",
+    "@unmini/loader-vue": "workspace:*",
+    "@unmini/plugin-unocss": "workspace:*",
+    "@unmini/polyfill": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

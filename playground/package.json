@@ -1,13 +1,34 @@
 {
   "name": "playground",
   "type": "module",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
+    "dev:mp-weixin": "unmini --watch",
     "build": "vite build",
-    "clear": "rimraf dist"
+    "build:mp-weixin": "unmini",
+    "typecheck": "vue-tsc --noEmit",
+    "clear": "rimraf dist",
+    "release": "echo playground noneed release"
   },
   "devDependencies": {
-    "unmini": "workspace:*"
+    "@unocss/reset": "^65.4.3",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vueuse/core": "^12.5.0",
+    "miniprogram-api-typings": "^4.0.4",
+    "typescript": "^5.7.3",
+    "unmini": "workspace:*",
+    "unocss": "^65.4.3",
+    "unplugin-auto-import": "^19.0.0",
+    "unplugin-vue-components": "https://github.com/byronogis/unplugin-vue-components#feat/long-extension_built",
+    "unplugin-vue-router": "^0.11.1",
+    "vite": "^6.0.11",
+    "vite-plugin-ejs": "^1.7.0",
+    "vite-plugin-vue-devtools": "^7.7.1",
+    "vite-plugin-vue-layouts": "^0.11.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vue-tsc": "^2.2.0"
   }
 }

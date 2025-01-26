@@ -1,0 +1,3 @@
+{
+  "extends": "@unmini/typescript-config/tsconfig.base.json"
+}
