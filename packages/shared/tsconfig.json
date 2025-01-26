@@ -1,3 +1,6 @@
 {
-  "extends": "@unmini/typescript-config/tsconfig.base.json"
+  "extends": "@unmini/typescript-config/tsconfig.base.json",
+  "include": [
+    "src"
+  ]
 }

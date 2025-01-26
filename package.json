@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "turbo run dev --filter='./packages/*'",
     "build": "turbo run build --filter='./packages/*'",
+    "build:full": "turbo run build",
     "automd": "turbo run automd && pnpm run root:automd",
     "release": "bumpp -r && pnpm run -r release",
     "root:automd": "automd --input='README*.md'",
