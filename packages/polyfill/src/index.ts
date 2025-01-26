@@ -3,7 +3,7 @@
 import type { weixin } from './weixin'
 import { defineComponent } from 'vue'
 
-export const unmini = {
+export const polyfill = {
   mini: {},
   global: {
     getApp() {},

@@ -50,7 +50,7 @@ export function trsnaformUnMiniImportFilePath(options: TSTransformOptions): TSTr
 
 /**
  * @example
- * `import { unmini } from 'unmini/polyfill'` -> ``
+ * `import { polyfill as unmini } from 'unmini/polyfill'` -> ``
  */
 export function removeUnMiniPolyfillImport(options: TSTransformOptions): TSTransformResult {
   const {

@@ -3,7 +3,7 @@ import type { Config } from '@unmini/core'
 
 export * from '@unmini/cli'
 export * from '@unmini/core'
-export { unmini as polyfill } from '@unmini/polyfill'
+export * from '@unmini/polyfill'
 
 /**
  * loaders

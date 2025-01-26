@@ -1,5 +1,5 @@
 <script lang="ts">
-import { unmini } from 'unmini/polyfill'
+import { polyfill as unmini } from 'unmini/polyfill'
 import { formatTime } from '../utils/index.mini'
 
 export default unmini.defineComponent({

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { unmini } from 'unmini/polyfill'
+import { polyfill as unmini } from 'unmini/polyfill'
 
 // 获取应用实例
 const app = unmini.global.getApp<IAppOption>()
