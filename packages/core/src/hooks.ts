@@ -6,12 +6,8 @@ import type { LoaderReturns } from './loader'
 import type { BasicPluginOptions, Plugin } from './plugin'
 import { createHooks } from 'hookable'
 
-export function resolveHooks(config: ResolvedConfig): Hookable<Hooks> {
+export function resolveHooks(_config: ResolvedConfig): Hookable<Hooks> {
   const hooks = createHooks<Hooks>()
-
-  config.plugins.forEach((plugin: Plugin) => {
-    plugin.hooks && hooks.addHooks(plugin.hooks)
-  })
 
   return hooks
 }
