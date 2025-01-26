@@ -14,10 +14,10 @@ export async function loader(options: ResolvedCoreOptions): Promise<LoaderReturn
 
   const results = await ctx.hooks.callHookWith(async (fnList, args) => {
     return await Promise.all(fnList.map((fn) => {
-    // @ts-expect-error TODO check hookable pkg, check its type
+    // @ts-expect-error TODO see https://github.com/unjs/hookable/issues/87
       return fn(...args)
     }))
-    // @ts-expect-error TODO check hookable pkg, check its type
+    // @ts-expect-error TODO see https://github.com/unjs/hookable/issues/87
   }, 'run-loader', ctx, options)
 
   return results.flat()
@@ -45,7 +45,7 @@ export function registerLoaders(ctx: CoreContext): void {
       throw new CoreError(`[@unmini/core] Loader key ${key} has been registered`)
     }
 
-    // @ts-expect-error TODO check hookable pkg, check its type
+    // @ts-expect-error TODO see https://github.com/unjs/hookable/issues/87
     ctx.hooks.hook('run-loader', (_ctx, _options) => {
       return _options.id.endsWith(key)
         ? handler(_ctx, {
