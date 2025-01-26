@@ -2,9 +2,9 @@
 
 <!-- automd:badges license codecov bundlephobia packagephobia -->
 
-[![npm version](https://img.shields.io/npm/v/@unmini/polyfill)](https://npmjs.com/package/@unmini/polyfill)
-[![npm downloads](https://img.shields.io/npm/dm/@unmini/polyfill)](https://npm.chart.dev/@unmini/polyfill)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/polyfill)](https://bundlephobia.com/package/@unmini/polyfill)
+[![npm version](https://img.shields.io/npm/v/@unmini/loader-ts)](https://npmjs.com/package/@unmini/loader-ts)
+[![npm downloads](https://img.shields.io/npm/dm/@unmini/loader-ts)](https://npm.chart.dev/@unmini/loader-ts)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/loader-ts)](https://bundlephobia.com/package/@unmini/loader-ts)
 [![codecov](https://img.shields.io/codecov/c/gh/byronogis/unmini)](https://codecov.io/gh/byronogis/unmini)
 [![license](https://img.shields.io/github/license/byronogis/unmini)](https://github.com/byronogis/unmini/blob/main/LICENSE)
 
@@ -20,22 +20,22 @@ Resolve ts file for [unmini](https://github.com/byronogis/unmini).
 
 ```sh
 # ✨ Auto-detect
-npx nypm install @unmini/polyfill
+npx nypm install @unmini/loader-ts
 
 # npm
-npm install @unmini/polyfill
+npm install @unmini/loader-ts
 
 # yarn
-yarn add @unmini/polyfill
+yarn add @unmini/loader-ts
 
 # pnpm
-pnpm install @unmini/polyfill
+pnpm install @unmini/loader-ts
 
 # bun
-bun install @unmini/polyfill
+bun install @unmini/loader-ts
 
 # deno
-deno install @unmini/polyfill
+deno install @unmini/loader-ts
 ```
 
 <!-- /automd -->
@@ -88,7 +88,7 @@ Made by [@byronogis](https://github.com/byronogis) and [community](https://githu
 
 ---
 
-_🤖 auto updated with [automd](https://automd.unjs.io) (last updated: Tue Jan 21 2025)_
+_🤖 auto updated with [automd](https://automd.unjs.io) (last updated: Sun Jan 26 2025)_
 
 <!-- /automd -->
 
