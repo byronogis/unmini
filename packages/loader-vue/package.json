@@ -1,7 +1,7 @@
 {
   "name": "@unmini/loader-vue",
   "type": "module",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Resolve vue file for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",

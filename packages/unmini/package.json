@@ -1,7 +1,7 @@
 {
   "name": "unmini",
   "type": "module",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Write code in your preferred way and generate mini program code",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
