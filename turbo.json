@@ -13,7 +13,7 @@
       "dependsOn": ["^dev"]
     },
     "playground#typecheck": {
-      "dependsOn": []
+      "dependsOn": ["^build"]
     },
     "@unmini/cli#build": {
       "dependsOn": ["^build"]
