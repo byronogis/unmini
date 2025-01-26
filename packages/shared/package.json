@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "release": "echo @unmini/shared noneed release"
   }
 }

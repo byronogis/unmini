@@ -1,6 +1,7 @@
 {
   "name": "playground",
   "type": "module",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -8,7 +9,8 @@
     "build": "vite build",
     "build:mp-weixin": "unmini",
     "typecheck": "vue-tsc --noEmit",
-    "clear": "rimraf dist"
+    "clear": "rimraf dist",
+    "release": "echo playground noneed release"
   },
   "devDependencies": {
     "@unocss/reset": "^65.4.3",
