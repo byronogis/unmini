@@ -1,8 +1,6 @@
-import type { CoreContext } from '../context'
+import type { CoreContext } from './context'
 import type { Hooks } from './hooks'
-import { CoreError } from '../errors'
-
-export * from './hooks'
+import { CoreError } from './errors'
 
 export function registerPlugins(ctx: CoreContext): void {
   const {

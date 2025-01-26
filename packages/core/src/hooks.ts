@@ -1,9 +1,9 @@
 import type { Hookable } from 'hookable'
-import type { BasicPluginOptions, Plugin } from '.'
-import type { ResolvedConfig } from '../config'
-import type { CoreContext } from '../context'
-import type { ResolvedCoreOptions } from '../core'
-import type { LoaderReturns } from '../loader'
+import type { ResolvedConfig } from './config'
+import type { CoreContext } from './context'
+import type { ResolvedCoreOptions } from './core'
+import type { LoaderReturns } from './loader'
+import type { BasicPluginOptions, Plugin } from './plugin'
 import { createHooks } from 'hookable'
 
 export function resolveHooks(config: ResolvedConfig): Hookable<Hooks> {
