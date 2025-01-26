@@ -1,26 +1,6 @@
-import type { TransformOptions } from '../types/transformer'
-import * as babel from '@babel/core'
+import type { VueTransformOptions } from './types'
 import { splitAtFirstChar } from '@unmini/shared'
 import { join, parse, relative } from 'pathe'
-
-export function transformTsToJs(code: string): string {
-  /**
-   * use babel to transform ts to js
-   *
-   * 使用 babel 转换 ts 到 js
-   */
-
-  const res = babel.transformSync(code, {
-    presets: [
-      ['@babel/preset-typescript', {
-        // onlyRemoveTypeImports: true,
-      }],
-    ],
-    filename: 'script.ts',
-  })
-
-  return res?.code || ''
-}
 
 /**
  * split vue directive
@@ -45,18 +25,16 @@ export function resolveVueDirective(derictive: string): [string, string | undefi
  *
  * 转换 unplugin-vur-router 的路径为小程序路径
  */
-export function resolveVueRoutePath(path: string, options: TransformOptions): string {
+export function resolveVueRoutePath(path: string, options: VueTransformOptions): string {
   const {
     id: file,
-    resolvedConfig: {
-      vue: {
-        router: {
-          prefix,
-        },
+    loader: {
+      router: {
+        prefix,
       },
       vueRoutesDirFull,
     },
-  } = options.ctx.options
+  } = options.ctx.payload
 
   /**
    * remove prefix

@@ -1,17 +1,17 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
-import type { TransformOptions, TransformResult } from '../../types/transformer'
+import type { TSTransformOptions, TSTransformResult } from './types'
 
 /**
  * @example
  * `import { formatTime } from '../utils/index.mini'` -> `import { formatTime } from '../utils/index'`
  */
-export function trsnaformUnMiniImportFilePath(options: TransformOptions): TransformResult {
+export function trsnaformUnMiniImportFilePath(options: TSTransformOptions): TSTransformResult {
   const {
     node,
     ctx,
   } = options
 
-  const subExtension = ctx.options.resolvedConfig.subExtension
+  const subExtension = ctx.payload.ctx.config.subExtension
 
   const match = 'FILE_PATH'
 
@@ -52,7 +52,7 @@ export function trsnaformUnMiniImportFilePath(options: TransformOptions): Transf
  * @example
  * `import { unmini } from 'unmini/polyfill'` -> ``
  */
-export function removeUnMiniPolyfillImport(options: TransformOptions): TransformResult {
+export function removeUnMiniPolyfillImport(options: TSTransformOptions): TSTransformResult {
   const {
     node,
   } = options

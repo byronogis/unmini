@@ -1,15 +1,14 @@
 import type { Edit } from '@ast-grep/napi'
-import type { VueTransformOptions } from '../../'
-import type { TransformResult } from '../../../../types'
+import type { VueTransformOptions, VueTransformResult } from '../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import { splitAtFirstChar } from '@unmini/shared'
-import { resolveVueDirective } from '../../../../utils'
+import { resolveVueDirective } from '../../utils'
 
 /**
  * @example
  * `v-bind:attr="value"` -> `attr="{{ value }}"`
  */
-export function transformVBind(options: VueTransformOptions): TransformResult {
+export function transformVBind(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options
@@ -49,7 +48,7 @@ export function transformVBind(options: VueTransformOptions): TransformResult {
  * `v-on:click="handler"` -> `bindclick="handler"`
  * `v-on:click.stop="handler"` -> `catchclick="handler"`
  */
-export function transformVOn(options: VueTransformOptions): TransformResult {
+export function transformVOn(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options
@@ -102,7 +101,7 @@ export function transformVOn(options: VueTransformOptions): TransformResult {
  * `<tag v-for="item,index in list" :key="item">`
  * -> `<tag wx:for="{{ list }}" wx:for-index="index" wx:for-item="item" wx:key="*this">`
  */
-export function transformVFor(options: VueTransformOptions): TransformResult {
+export function transformVFor(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options
@@ -178,7 +177,7 @@ export function transformVFor(options: VueTransformOptions): TransformResult {
  * `v-else-if="condition"` -> `wx:elif="{{ condition }}"`
  * `v-else` -> `wx:else`
  */
-export function transformVIf(options: VueTransformOptions): TransformResult {
+export function transformVIf(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options
@@ -229,7 +228,7 @@ export function transformVIf(options: VueTransformOptions): TransformResult {
  * @example
  * `v-model:prop="value"` -> `model:prop="{{ value }}"`
  */
-export function transformVModel(options: VueTransformOptions): TransformResult {
+export function transformVModel(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options
@@ -269,7 +268,7 @@ export function transformVModel(options: VueTransformOptions): TransformResult {
  * @example
  * `v-slot:foo` -> `slot="foo"`
  */
-export function transformVSlot(options: VueTransformOptions): TransformResult {
+export function transformVSlot(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options
@@ -310,7 +309,7 @@ export function transformVSlot(options: VueTransformOptions): TransformResult {
  *
  * #TODO view can customize by config
  */
-export function transformVSlotTagName(options: VueTransformOptions): TransformResult {
+export function transformVSlotTagName(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options
@@ -352,7 +351,7 @@ export function transformVSlotTagName(options: VueTransformOptions): TransformRe
  * `span` -> `text`
  * `template` -> `block`
  */
-export function transformElementName(options: VueTransformOptions): TransformResult {
+export function transformElementName(options: VueTransformOptions): VueTransformResult {
   const {
     node,
   } = options

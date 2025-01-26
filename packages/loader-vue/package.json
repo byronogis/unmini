@@ -1,8 +1,8 @@
 {
-  "name": "@unmini/config",
+  "name": "@unmini/loader-vue",
   "type": "module",
   "version": "0.0.0",
-  "description": "Config loader for unmini",
+  "description": "Resolve vue file for unmini",
   "author": "Byron <byronogis@outlook.com>",
   "license": "MIT",
   "funding": "https://github.com/sponsors/byronogis",
@@ -47,10 +47,12 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
+    "@ast-grep/napi": "^0.33.1",
     "@unmini/core": "workspace:*",
-    "c12": "^2.0.1"
-  },
-  "devDependencies": {
-    "typescript": "^5.7.3"
+    "@unmini/loader-ts": "workspace:*",
+    "@vue/compiler-sfc": "^3.5.13",
+    "defu": "^6.1.4",
+    "pathe": "^2.0.2",
+    "type-fest": "^4.33.0"
   }
 }

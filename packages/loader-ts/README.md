@@ -1,10 +1,10 @@
-# @unmini/config
+# @unmini/loader-ts
 
 <!-- automd:badges license codecov bundlephobia packagephobia -->
 
-[![npm version](https://img.shields.io/npm/v/@unmini/config)](https://npmjs.com/package/@unmini/config)
-[![npm downloads](https://img.shields.io/npm/dm/@unmini/config)](https://npm.chart.dev/@unmini/config)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/config)](https://bundlephobia.com/package/@unmini/config)
+[![npm version](https://img.shields.io/npm/v/@unmini/polyfill)](https://npmjs.com/package/@unmini/polyfill)
+[![npm downloads](https://img.shields.io/npm/dm/@unmini/polyfill)](https://npm.chart.dev/@unmini/polyfill)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@unmini/polyfill)](https://bundlephobia.com/package/@unmini/polyfill)
 [![codecov](https://img.shields.io/codecov/c/gh/byronogis/unmini)](https://codecov.io/gh/byronogis/unmini)
 [![license](https://img.shields.io/github/license/byronogis/unmini)](https://github.com/byronogis/unmini/blob/main/LICENSE)
 
@@ -12,7 +12,7 @@
 
 [![JSDocs][jsdocs-src]][jsdocs-href]
 
-Config loader for [unmini](https://github.com/byronogis/unmini).
+Resolve ts file for [unmini](https://github.com/byronogis/unmini).
 
 ## Installation
 
@@ -20,22 +20,22 @@ Config loader for [unmini](https://github.com/byronogis/unmini).
 
 ```sh
 # ✨ Auto-detect
-npx nypm install @unmini/config
+npx nypm install @unmini/polyfill
 
 # npm
-npm install @unmini/config
+npm install @unmini/polyfill
 
 # yarn
-yarn add @unmini/config
+yarn add @unmini/polyfill
 
 # pnpm
-pnpm install @unmini/config
+pnpm install @unmini/polyfill
 
 # bun
-bun install @unmini/config
+bun install @unmini/polyfill
 
 # deno
-deno install @unmini/config
+deno install @unmini/polyfill
 ```
 
 <!-- /automd -->

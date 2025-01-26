@@ -52,7 +52,6 @@
   },
   "dependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@unmini/config": "workspace:*",
     "@unmini/core": "workspace:*",
     "chokidar": "^3.6.0",
     "citty": "^0.1.6",

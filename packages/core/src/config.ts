@@ -1,10 +1,23 @@
-import type { SFCParseOptions } from '@vue/compiler-sfc'
 import type { Arrayable, SetRequiredDeep } from 'type-fest'
-import type { LoaderOptions, LoaderReturns, Platform } from '.'
+import type { Loader, LoaderReturns } from './loader'
 import type { Plugin } from './plugin'
+import type { Platform } from './types'
 import process from 'node:process'
+import { loadConfig as _loadConfig } from 'c12'
 import { defu } from 'defu'
 import { resolve } from 'pathe'
+
+export async function loadConfig<T extends Config = Config>(
+  ...configs: T[]
+): Promise<ResolvedConfig> {
+  const { config } = await _loadConfig({
+    name: 'unmini',
+  })
+
+  const resolvedConfig = resolveConfig(...configs, config)
+
+  return resolvedConfig
+}
 
 export const defaultConfig: Config = {
   platform: 'weixin',
@@ -14,15 +27,7 @@ export const defaultConfig: Config = {
   clear: false,
   transform: {
   },
-  vue: {
-    block: {
-      config: 'config',
-    },
-    router: {
-      prefix: '',
-      routesDir: 'pages',
-    },
-  },
+  loaders: [],
   plugins: [],
 }
 
@@ -34,13 +39,13 @@ export function resolveConfig(...configs: Config[]): ResolvedConfig {
   config.srcDir ??= config.cwd
   config.patterns = Array.from(new Set(config.patterns)).filter(Boolean)
   config.plugins = config.plugins?.flat() ?? []
+  config.loaders = config.loaders?.flat() ?? []
 
   return {
     ...config,
     resolved: true,
     outputDirFull: resolve(config.cwd, config.outputDir!),
     srcDirFull: resolve(config.cwd, config.srcDir),
-    vueRoutesDirFull: resolve(config.cwd, config.srcDir, config.vue!.router!.routesDir!),
   } as ResolvedConfig
 }
 
@@ -136,53 +141,9 @@ export interface Config {
     }
   }
   /**
-   * the options for vue
-   *
-   * vue 配置
+   * loaders
    */
-  vue?: {
-    /**
-     * 代码块配置
-     */
-    block?: {
-      /**
-       * the name of the config block
-       *
-       * 配置项内容的代码块名称
-       *
-       * @default 'config'
-       */
-      config?: string
-    }
-    router?: {
-      /**
-       * 指定的前缀会在解析时移除, 比如可以用于当在 vite 中指定 base 时
-       *
-       * @default ''
-       */
-      prefix?: string
-      /**
-       * directory to store the route file, relative to srcDir
-       *
-       * 存放路由文件的目录, 相对于 srcDir
-       *
-       * @default pages
-       */
-      routesDir?: string
-    }
-    /**
-     * the options for vue parser
-     *
-     * vue 解析器配置
-     */
-    parseOptions?: SFCParseOptions
-  }
-  /**
-   * custom converters
-   *
-   * 自定义转换器
-   */
-  loaders?: Record<string, (options: LoaderOptions) => LoaderReturns>
+  loaders?: Arrayable<Loader<any>>[]
   /**
    * plugins
    */
@@ -195,7 +156,6 @@ export interface ResolvedConfig extends SetRequiredDeep<
   | 'cwd' | 'srcDir' | 'outputDir' | 'clear'
   | 'platform'
   | 'transform'
-  | 'vue' | 'vue.block' | 'vue.block.config' | 'vue.router' | 'vue.router.prefix' | 'vue.router.routesDir'
 > {
   /**
    * whether the config has been resolved
@@ -203,6 +163,12 @@ export interface ResolvedConfig extends SetRequiredDeep<
    * 配置是否已经被解析
    */
   resolved: true
+  /**
+   * loaders after flattening
+   *
+   * 扁平化后的加载器列表
+   */
+  loaders: Loader[]
   /**
    * plugins after flattening
    *
@@ -221,10 +187,4 @@ export interface ResolvedConfig extends SetRequiredDeep<
    * 源码目录的完整路径
    */
   srcDirFull: string
-  /**
-   * Full path to the directory where the route file is stored
-   *
-   * 存放路由文件的目录的完整路径
-   */
-  vueRoutesDirFull: string
 }

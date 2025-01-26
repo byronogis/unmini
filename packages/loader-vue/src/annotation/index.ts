@@ -1,5 +1,5 @@
-import type { VueTransformerOptions } from '..'
-import { transformTsToJs } from '../../../utils'
+import type { VueTransformerOptions } from '../types'
+import { transformTsToJs } from '@unmini/loader-ts'
 
 export function annotation(options: VueTransformerOptions): void {
   const {

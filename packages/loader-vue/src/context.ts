@@ -1,26 +1,26 @@
+import type { BlockContents, LoaderPayload } from '@unmini/core'
 import type { SFCBlock, SFCScriptBlock, SFCStyleBlock, SFCTemplateBlock } from '@vue/compiler-sfc'
-import type { BlockContents, ResolvedCoreOptions } from '../..'
-import type { BaseContext } from '../../types/transformer'
+import type { ResolvedVueLoaderOptions } from './types'
+import { CoreError } from '@unmini/core'
 import { parse as sfcParse } from '@vue/compiler-sfc'
-import { CoreError } from '../../errors'
 
-export function getContext(options: ResolvedCoreOptions): Context {
+export function getContext(payload: LoaderPayload<ResolvedVueLoaderOptions>): VueContext {
   const {
     template,
     script,
     styles,
     customBlocks,
-  } = sfcParse(options.content, options.resolvedConfig.vue?.parseOptions).descriptor
+  } = sfcParse(payload.content, payload.loader.parseOptions).descriptor
 
   const style = styles[0]
-  const config = customBlocks.find(block => block.type === options.resolvedConfig.vue.block.config)
+  const config = customBlocks.find(block => block.type === payload.loader.block.config)
 
   if (!config) {
-    throw new CoreError('[@unmini/core] Missing config block content')
+    throw new CoreError('[@unmini/loader-vue] Missing config block content')
   }
 
   return {
-    options,
+    payload,
     blocks: {
       config,
       script,
@@ -36,7 +36,8 @@ export function getContext(options: ResolvedCoreOptions): Context {
   }
 }
 
-export interface Context extends BaseContext {
+export interface VueContext {
+  payload: LoaderPayload<ResolvedVueLoaderOptions>
   /**
    * the raw sfc code block parsed by vue compiler
    *

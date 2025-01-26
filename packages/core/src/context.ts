@@ -1,16 +1,19 @@
 import type { Hookable } from 'hookable'
 import type { Arrayable } from 'type-fest'
 import type { Config, ResolvedConfig } from './config'
+import type { LoaderPlain } from './loader'
 import type { Plugin } from './plugin'
 import type { Hooks } from './plugin/hooks'
 import { createHooks } from 'hookable'
 import { resolveConfig } from './config'
+import { registerLoaders } from './loader'
 import { registerPlugins } from './plugin'
 
-export class Context {
+export class CoreContext {
   config: ResolvedConfig
   hooks: Hookable<Hooks>
   registeredPlugins: Map<Plugin['key'], Plugin['options']> = new Map()
+  registeredLoaders: Map<LoaderPlain['key'], LoaderPlain['options']> = new Map()
 
   constructor(options: ContextOptions) {
     this.hooks = createHooks<Hooks>()
@@ -25,6 +28,11 @@ export class Context {
      * register plugins
      */
     registerPlugins(this)
+
+    /**
+     * register loaders
+     */
+    registerLoaders(this)
   }
 }
 

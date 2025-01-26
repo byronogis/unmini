@@ -1,4 +1,4 @@
-import type { VueTransformerOptions } from '../../'
+import type { VueTransformerOptions } from '../../types'
 import { Lang, parse } from '@ast-grep/napi'
 import {
   transformEmit,

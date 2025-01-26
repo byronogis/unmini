@@ -1,4 +1,4 @@
-import type { Context, Platform } from '@unmini/core'
+import type { CoreContext, Platform } from '@unmini/core'
 import type { ResolvedUnoCSSOptions, UnoCSSOptions } from './types'
 import { spawnSync } from 'node:child_process'
 import { tmpdir } from 'node:os'
@@ -9,12 +9,12 @@ import { resolve } from 'pathe'
 
 const NAME = 'unocss'
 
-export default function unocss(options: UnoCSSOptions): any {
+export default function unocss(options?: UnoCSSOptions): any {
   return definePlugin<UnoCSSOptions>({
     key: NAME,
     options,
     hooks: {
-      'pre-inject-plugin-options': (ctx, options = {}) => {
+      'pre-inject-plugin-options': (ctx, options) => {
         const {
           config,
         } = ctx
@@ -33,7 +33,7 @@ export default function unocss(options: UnoCSSOptions): any {
   })
 }
 
-export async function run(ctx: Context): Promise<void> {
+export async function run(ctx: CoreContext): Promise<void> {
   const { content: unocssContent } = generate(ctx)
 
   const _option = ctx.registeredPlugins.get(NAME) as ResolvedUnoCSSOptions
@@ -57,11 +57,11 @@ export async function run(ctx: Context): Promise<void> {
   await writeFile(_option.injectFilePath, content)
 }
 
-export function generate(ctx: Context): {
+export function generate(ctx: CoreContext): {
   content: string
 } {
   if (!checkCommand('unocss')) {
-    throw new Error(`[unmini] unocss is not installed, please install it first. see https://unocss.dev/integrations/cli`)
+    throw new Error(`[@unmini/plugin-unocss] unocss is not installed, please install it first. see https://unocss.dev/integrations/cli`)
   }
 
   const _option = ctx.registeredPlugins.get(NAME) as ResolvedUnoCSSOptions

@@ -1,7 +1,6 @@
 import type { CliOptions, ResolvedCliOptions } from './types'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { loadConfig } from '@unmini/config'
-import { Context, core, CoreError } from '@unmini/core'
+import { core, CoreContext, CoreError, loadConfig } from '@unmini/core'
 import { cyan, dim, green } from 'colorette'
 import { consola } from 'consola'
 import { remove } from 'fs-extra'
@@ -23,7 +22,7 @@ export async function handle(_options: CliOptions): Promise<void> {
     handleError(new PrettyError(`No glob patterns, try ${cyan(`${name} <path/to/**/*>`)}`))
   }
 
-  const ctx = new Context({ configs: options })
+  const ctx = new CoreContext({ configs: options })
 
   const files = await glob([
     ...options.patterns,
@@ -103,12 +102,12 @@ export async function handle(_options: CliOptions): Promise<void> {
      *
      * 转换文件
      */
-    const transformedList = sourceCache.map(({ id, content }) => {
+    const transformedList = (await Promise.all(sourceCache.map(async ({ id, content }) => {
       try {
         const shouldTransform = id.split('.').at(-2) === options.subExtension
 
         const result = shouldTransform
-          ? core({ id, content, resolvedConfig: options })
+          ? await core({ id, content, ctx })
           : [{ content, ext: id.split('.').at(-1) || '' }]
 
         return result.map(i => ({ ...i, id }))
@@ -119,7 +118,7 @@ export async function handle(_options: CliOptions): Promise<void> {
         }
         throw error
       }
-    }).flat()
+    }))).flat()
 
     /**
      * output files by directory structure

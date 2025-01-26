@@ -1,6 +1,5 @@
 import type { Edit, NapiConfig } from '@ast-grep/napi'
-import type { VueTransformOptions } from '../'
-import type { TransformResult } from '../../../types'
+import type { VueTransformOptions, VueTransformResult } from '../types'
 
 /**
  * @see https://vuejs.org/guide/essentials/template-syntax.html#same-name-shorthand
@@ -8,7 +7,7 @@ import type { TransformResult } from '../../../types'
  * @example
  * `:attr` -> `:attr="attr"`
  */
-export function expandAttributeSameNameShorthand(options: VueTransformOptions): TransformResult {
+export function expandAttributeSameNameShorthand(options: VueTransformOptions): VueTransformResult {
   const { node } = options
 
   const match = 'ATTR'
@@ -46,7 +45,7 @@ export function expandAttributeSameNameShorthand(options: VueTransformOptions): 
  * `#name` -> `v-slot:name`
  * `v-model` -> `v-model:value`
  */
-export function expandDerictiveShorthand(options: VueTransformOptions): TransformResult {
+export function expandDerictiveShorthand(options: VueTransformOptions): VueTransformResult {
   const { node } = options
 
   const match = 'ATTR'

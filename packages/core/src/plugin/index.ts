@@ -1,10 +1,10 @@
-import type { Context } from '../context'
+import type { CoreContext } from '../context'
 import type { Hooks } from './hooks'
 import { CoreError } from '../errors'
 
 export * from './hooks'
 
-export function registerPlugins(ctx: Context): void {
+export function registerPlugins(ctx: CoreContext): void {
   const {
     plugins,
   } = ctx.config
@@ -25,11 +25,11 @@ export function registerPlugins(ctx: Context): void {
     }
 
     if (!/^[a-z0-9-_]+$/.test(key)) {
-      throw new CoreError(`[unmini] Plugin key ${key} is illegal, only a-z0-9-_ are allowed`)
+      throw new CoreError(`[@unmini/core] Plugin key ${key} is illegal, only a-z0-9-_ are allowed`)
     }
 
     if (ctx.registeredPlugins.has(key)) {
-      throw new CoreError(`[unmini] Plugin key ${key} has been registered`)
+      throw new CoreError(`[@unmini/core] Plugin key ${key} has been registered`)
     }
 
     hooks && ctx.hooks.addHooks(hooks)

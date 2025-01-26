@@ -1,7 +1,9 @@
 import type { Hookable } from 'hookable'
 import type { BasicPluginOptions, Plugin } from '.'
 import type { ResolvedConfig } from '../config'
-import type { Context } from '../context'
+import type { CoreContext } from '../context'
+import type { ResolvedCoreOptions } from '../core'
+import type { LoaderReturns } from '../loader'
 import { createHooks } from 'hookable'
 
 export function resolveHooks(config: ResolvedConfig): Hookable<Hooks> {
@@ -15,8 +17,9 @@ export function resolveHooks(config: ResolvedConfig): Hookable<Hooks> {
 }
 
 export interface Hooks<T extends BasicPluginOptions = BasicPluginOptions> {
-  'pre-inject-plugin-options': (cxt: Context, options: Plugin<T>['options']) => Plugin<T>['options']
-  'post-output': (cxt: Context) => void
+  'pre-inject-plugin-options': (cxt: CoreContext, options: Plugin<T>['options']) => Plugin<T>['options']
+  'post-output': (cxt: CoreContext) => void
+  'run-loader': (cxt: CoreContext, option: ResolvedCoreOptions) => LoaderReturns
 }
 
 export type HookKeys = keyof Hooks
