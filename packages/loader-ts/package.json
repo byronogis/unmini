@@ -12,7 +12,15 @@
     "url": "https://github.com/byronogis/unmini.git"
   },
   "bugs": "https://github.com/byronogis/unmini/issues",
-  "keywords": [],
+  "keywords": [
+    "miniprogram",
+    "miniapp",
+    "conversion",
+    "generation",
+    "engine",
+    "loader",
+    "ts"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"

@@ -12,7 +12,20 @@
     "url": "https://github.com/byronogis/unmini.git"
   },
   "bugs": "https://github.com/byronogis/unmini/issues",
-  "keywords": [],
+  "keywords": [
+    "miniprogram",
+    "miniapp",
+    "conversion",
+    "generation",
+    "engine",
+    "plugin",
+    "unocss",
+    "loader",
+    "unocss",
+    "vue",
+    "polyfill",
+    "cli"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {

@@ -12,7 +12,14 @@
     "url": "https://github.com/byronogis/unmini.git"
   },
   "bugs": "https://github.com/byronogis/unmini/issues",
-  "keywords": [],
+  "keywords": [
+    "miniprogram",
+    "miniapp",
+    "loader",
+    "unocss",
+    "vue",
+    "cli"
+  ],
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
