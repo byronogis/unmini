@@ -1,4 +1,4 @@
-import { defineConfig, pluginUnoCSS } from 'unmini'
+import { defineConfig, loaderTS, loaderVue, pluginUnoCSS } from 'unmini'
 
 export default defineConfig({
   patterns: [
@@ -26,18 +26,19 @@ export default defineConfig({
       ],
     },
   },
-  vue: {
-    block: {
-      config: 'unmini',
-    },
-    router: {
-      prefix: '/unmini',
-      routesDir: 'pages',
-    },
-  },
-  plugins: [
-    pluginUnoCSS({
-      // ...
+  loaders: [
+    loaderTS(),
+    loaderVue({
+      block: {
+        config: 'unmini',
+      },
+      router: {
+        prefix: '/unmini',
+        routesDir: 'pages',
+      },
     }),
+  ],
+  plugins: [
+    pluginUnoCSS(),
   ],
 })
