@@ -50,6 +50,9 @@
       ]
     }
   },
+  "bin": {
+    "unmini": "./node_modules/@unmini/cli/bin/unmini.mjs"
+  },
   "files": [
     "dist"
   ],
