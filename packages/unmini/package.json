@@ -60,7 +60,7 @@
     "dev": "unbuild --stub",
     "build": "unbuild",
     "start": "jiti src/index.ts",
-    "automd": "automd README.md",
+    "automd": "",
     "prepublishOnly": "pnpm run build",
     "release": "pnpm publish",
     "typecheck": "tsc --noEmit",

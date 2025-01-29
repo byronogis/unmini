@@ -88,11 +88,11 @@ Made by [@byronogis](https://github.com/byronogis) and [community](https://githu
 
 ---
 
-_🤖 auto updated with [automd](https://automd.unjs.io) (last updated: Sun Jan 26 2025)_
+_🤖 auto updated with [automd](https://automd.unjs.io) (last updated: Wed Jan 29 2025)_
 
 <!-- /automd -->
 
 <!-- Badges -->
 
 [jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/pausable-timers
+[jsdocs-href]: https://www.jsdocs.io/package/unmini
