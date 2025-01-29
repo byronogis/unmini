@@ -3,3 +3,51 @@ packages:
   - docs
   - packages/*
   - examples/*
+catalog:
+  '@ast-grep/cli': ^0.33.1
+  '@ast-grep/napi': ^0.33.1
+  '@antfu/eslint-config': ^3.16.0
+  '@types/node': ^22.10.10
+  '@vitest/coverage-v8': ^3.0.4
+  automd: ^0.3.12
+  bumpp: ^9.10.2
+  eslint: ^9.19.0
+  jiti: ^2.4.2
+  lint-staged: ^15.4.2
+  rimraf: ^6.0.1
+  simple-git-hooks: ^2.11.1
+  tinyglobby: ^0.2.10
+  typescript: ^5.7.3
+  unbuild: ^3.3.1
+  vitest: ^3.0.4
+  '@unocss/reset': ^65.4.3
+  '@vitejs/plugin-vue': ^5.2.1
+  '@vueuse/core': ^12.5.0
+  miniprogram-api-typings: ^4.0.4
+  unocss: ^65.4.3
+  unplugin-auto-import: ^19.0.0
+  unplugin-vue-router: ^0.11.1
+  vite: ^6.0.11
+  vite-plugin-ejs: ^1.7.0
+  vite-plugin-vue-devtools: ^7.7.1
+  vite-plugin-vue-layouts: ^0.11.0
+  vue: ^3.5.13
+  vue-router: ^4.5.0
+  vue-tsc: ^2.2.0
+  c12: ^2.0.1
+  defu: ^6.1.4
+  hookable: ^5.5.3
+  pathe: ^2.0.2
+  type-fest: ^4.33.0
+  '@types/fs-extra': ^11.0.4
+  chokidar: ^3.6.0
+  citty: ^0.1.6
+  colorette: ^2.0.20
+  consola: ^3.4.0
+  fs-extra: ^11.3.0
+  perfect-debounce: ^1.0.0
+  '@vue/compiler-sfc': ^3.5.13
+  '@unocss/cli': ^65.4.3
+  '@babel/core': ^7.26.7
+  '@babel/preset-typescript': ^7.26.0
+  '@types/babel__core': ^7.20.5

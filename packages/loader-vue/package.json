@@ -58,12 +58,12 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
-    "@ast-grep/napi": "^0.33.1",
+    "@ast-grep/napi": "catalog:",
     "@unmini/core": "workspace:*",
     "@unmini/loader-ts": "workspace:*",
-    "@vue/compiler-sfc": "^3.5.13",
-    "defu": "^6.1.4",
-    "pathe": "^2.0.2",
-    "type-fest": "^4.33.0"
+    "@vue/compiler-sfc": "catalog:",
+    "defu": "catalog:",
+    "pathe": "catalog:",
+    "type-fest": "catalog:"
   }
 }

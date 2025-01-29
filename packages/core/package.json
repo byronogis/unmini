@@ -57,13 +57,13 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
-    "c12": "^2.0.1",
-    "defu": "^6.1.4",
-    "hookable": "^5.5.3",
-    "pathe": "^2.0.2",
-    "type-fest": "^4.33.0"
+    "c12": "catalog:",
+    "defu": "catalog:",
+    "hookable": "catalog:",
+    "pathe": "catalog:",
+    "type-fest": "catalog:"
   },
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "typescript": "catalog:"
   }
 }

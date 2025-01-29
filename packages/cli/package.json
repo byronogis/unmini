@@ -61,18 +61,18 @@
     "clear": "rimraf dist"
   },
   "dependencies": {
-    "@types/fs-extra": "^11.0.4",
+    "@types/fs-extra": "catalog:",
     "@unmini/core": "workspace:*",
-    "chokidar": "^3.6.0",
-    "citty": "^0.1.6",
-    "colorette": "^2.0.20",
-    "consola": "^3.4.0",
-    "fs-extra": "^11.3.0",
-    "pathe": "^2.0.2",
-    "perfect-debounce": "^1.0.0",
-    "tinyglobby": "^0.2.10"
+    "chokidar": "catalog:",
+    "citty": "catalog:",
+    "colorette": "catalog:",
+    "consola": "catalog:",
+    "fs-extra": "catalog:",
+    "pathe": "catalog:",
+    "perfect-debounce": "catalog:",
+    "tinyglobby": "catalog:"
   },
   "devDependencies": {
-    "typescript": "^5.7.3"
+    "typescript": "catalog:"
   }
 }

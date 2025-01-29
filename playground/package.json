@@ -13,22 +13,22 @@
     "release": "echo playground noneed release"
   },
   "devDependencies": {
-    "@unocss/reset": "^65.4.3",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vueuse/core": "^12.5.0",
-    "miniprogram-api-typings": "^4.0.4",
-    "typescript": "^5.7.3",
+    "@unocss/reset": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vueuse/core": "catalog:",
+    "miniprogram-api-typings": "catalog:",
+    "typescript": "catalog:",
     "unmini": "workspace:*",
-    "unocss": "^65.4.3",
-    "unplugin-auto-import": "^19.0.0",
+    "unocss": "catalog:",
+    "unplugin-auto-import": "catalog:",
     "unplugin-vue-components": "https://github.com/byronogis/unplugin-vue-components#feat/long-extension_built",
-    "unplugin-vue-router": "^0.11.1",
-    "vite": "^6.0.11",
-    "vite-plugin-ejs": "^1.7.0",
-    "vite-plugin-vue-devtools": "^7.7.1",
-    "vite-plugin-vue-layouts": "^0.11.0",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "vue-tsc": "^2.2.0"
+    "unplugin-vue-router": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-ejs": "catalog:",
+    "vite-plugin-vue-devtools": "catalog:",
+    "vite-plugin-vue-layouts": "catalog:",
+    "vue": "catalog:",
+    "vue-router": "catalog:",
+    "vue-tsc": "catalog:"
   }
 }
